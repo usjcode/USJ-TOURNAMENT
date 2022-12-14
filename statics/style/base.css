@@ -1,0 +1,42 @@
+body
+{
+    margin:0;
+    color: black;
+    background-color: #F5F5F5;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+
+}
+*
+{
+    box-sizing: border-box;
+    user-select: none;
+}
+
+ul
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a
+{
+    text-decoration: none;
+    color: black;
+    font-size: 1.3rem;
+}
+
+.side-nav a
+{
+padding: 20px;
+margin-top:10px;
+
+}
+
+.side-nav
+{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+}
