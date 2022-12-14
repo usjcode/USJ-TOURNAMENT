@@ -1,0 +1,33 @@
+
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block style %}{% endblock style %}
+    <link rel="stylesheet" href="{% static 'style/base.css' %}">
+
+    <title>{% block 'title' %}{% endblock %}</title>
+</head>
+<body>
+    <main>
+        <div class="side-bar">
+            <div style="padding: 0px 20px;">
+                <img width="100%" src="logo_SJI2.png" alt="">
+            </div>
+
+<div class="side-nav">
+    <a class="active" href="">Acceuil</a>
+    <a href="">Staff</a>
+    <a href="">Mon profil</a>
+    <a href="">se deconnecter</a>
+</div>
+        </div>
+
+        {% block 'content' %}{% endblock%}
+
+
+    </main>
+</body>
+</html>

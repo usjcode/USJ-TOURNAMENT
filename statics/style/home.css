@@ -1,0 +1,91 @@
+main
+{
+    position: fixed;
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+main>div
+{
+    height: 100%;
+}
+.side-bar
+{
+    min-width: 400px;
+    max-width: 400px;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 10px 0px rgb(212, 212, 212) ;
+    text-align: center;
+
+}
+
+a.active
+{
+background-color: #f7f7F7!important;
+
+border-right: 2px rgb(26, 105, 224) solid ;
+}
+
+a:hover
+{
+    background-color: #f4f4f4;
+}
+
+.tournaments-wrapper
+{
+ 
+    width: 100%;
+}
+
+.tournaments
+{
+    height: 100%;
+    padding: 0 100px;
+ 
+}
+
+.brand
+{
+
+    text-align: center;
+    background-color: rgb(150, 0, 0);
+    width: 300px;
+    height: 100%;
+    clip-path: polygon(0 0 , 100% 0 , 100% 100%);
+    padding: 10px;
+    color:white
+}
+.content
+{
+    width: 100%;
+    text-align: center;
+}
+.brand-inf
+{
+background-color: rgb(9, 68, 177);
+}
+
+.brand-man
+{
+background-color: green;
+}
+
+.tournament
+{
+    display: flex;
+    position: relative;
+    height: 200px;
+    margin: 40px  0;
+ background-color: white;
+ box-shadow: 5PX 7px 15px 3px rgb(192, 192, 192);
+ box-sizing:none;
+}
+
+.tournament:hover
+{
+    width: calc(100% + 20px);
+    height: calc(200px + 10px) ;
+    right:40px
+}
