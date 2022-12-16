@@ -1,63 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
 
  {% block title %} isjtournamnt | home {% endblock %}
  {% block style %}
  <link rel="stylesheet" href="{%static 'style/home.css'%}">
  {% endblock  %}
-    {% extends 'base.html' %}
      {% block 'content' %}
      <div class="tournaments-wrapper">
 
+       
         <div class="tournaments">
-        
-            <div class="tournament">
+            {% for t in tournaments  %}
+            <a  href="{% url 'tournament' t.pk %}" class="tournament">
                 <div class="content">
                           <h2>
-                    concour Management
+                    {{t.type}}
                 </h2>
                 </div>
           
         <div class="brand"></div>
         
-            </div>
-        
-            <div class="tournament">
-                <div class="content">
-                          <h2>
-                    concour Management
-                </h2>
+            </a>
+        {% endfor %}
+
                 </div>
-          
-        <div class="brand"></div>
         
-            </div>
-            
-            <div class="tournament">
-                <div class="content">
-                          <h2>
-                    concour Management
-                </h2>
-                </div>
-          
-        <div class="brand">
-            <span>
-                6 juin 2022
-            </span>
-        </div>
         
-            </div>
-            
-            <div class="tournament">
-                <div class="content">
-                          <h2>
-                    concour Management
-                </h2>
-                </div>
-          
-        <div class="brand"></div>
-        
-            </div>
-        </div>
-                </div>
+
         
      
      {% endblock 'content' %}

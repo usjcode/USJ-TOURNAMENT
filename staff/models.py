@@ -1,7 +1,3 @@
-from django.db import models
-
-# Create your models here.
-
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -12,5 +8,9 @@ class EmailUser(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
 
 class staff(models.Model):
-    role=models.models.CharField("invité", max_length=50)
+    avatar=models.ImageField(null=True)
+    role=models.CharField("invité", max_length=50)
+    bio=models.TextField(null=True)
+    
+    
     

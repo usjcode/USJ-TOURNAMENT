@@ -1,16 +1,10 @@
 from django.shortcuts import render
 from .models import Tournament
-<<<<<<< HEAD
-
-# Create your views here.
-
-def home_view(request):
-    tournaments=Tournament.objects.all()
-    return render(request,"home.html")
-=======
 from django.views.generic import TemplateView
 from django.views import View
 from django.views.generic.edit import FormView
+
+from .forms import AddTournamentForm
 # Create your views here.
 
 
@@ -24,10 +18,19 @@ class AboutView(TemplateView):
     
     
 
-class HomeView(View):
-    template_name = 'form_template.html'
-    def get(self, request, *args, **kwargs):
-        return  render(request,self.template_name)
+class HomeView(TemplateView):
+    template_name = 'home.html'
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context["tournaments"]=Tournament.objects.all()
+        return context
+
+
+class TournamentView(TemplateView):
+    template_name = 'tournament.html'
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        return context
     
 
 
@@ -42,4 +45,3 @@ class AddView(FormView):
         form.send_email()
         return super().form_valid(form)
 
->>>>>>> 24d2046 (is comming)

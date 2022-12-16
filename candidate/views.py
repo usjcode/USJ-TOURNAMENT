@@ -1,18 +1,10 @@
 from django.shortcuts import render
-<<<<<<< HEAD
-
-# Create your views here.
-=======
 from .models import Tournament
 from django.views.generic import TemplateView
 from django.views import View
 from django.views.generic.edit import FormView
+from .forms import AddCandidateForm
 # Create your views here.
-
-
-
-
-# some_app/views.py
 
 
 class AboutView(TemplateView):
@@ -29,8 +21,8 @@ class HomeView(View):
 
 
 class AddView(FormView):
-    template_name = 'add_tournament.html'
-    form_class = AddTournamentForm
+    template_name = 'add_candidate.html'
+    form_class = AddCandidateForm
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
@@ -38,4 +30,4 @@ class AddView(FormView):
         form.send_email()
         return super().form_valid(form)
 
->>>>>>> 24d2046 (is comming)
+

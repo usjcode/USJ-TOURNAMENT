@@ -14,14 +14,14 @@
     <main>
         <div class="side-bar">
             <div style="padding: 0px 20px;">
-                <img width="100%" src="logo_SJI2.png" alt="">
+                <img width="100%" src="{% static 'image/logo_SJI2.png' %} " alt="">
             </div>
 
 <div class="side-nav">
-    <a class="active" href="">Acceuil</a>
-    <a href="">Staff</a>
-    <a href="">Mon profil</a>
-    <a href="">se deconnecter</a>
+    <a class="active" href="{% url 'home' %}">Acceuil</a>
+    <a href="{% url 'staff' %}">Staff</a>
+    <a href="{% url 'staff' %}">Mon profil</a>
+    <a href="{% url 'logout' %}">se deconnecter</a>
 </div>
         </div>
 

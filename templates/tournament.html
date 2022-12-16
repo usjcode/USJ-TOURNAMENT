@@ -1,29 +1,17 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="home.css">
-    <link rel="stylesheet" href="globalstyle.css">
-    <title>Document</title>
-</head>
-<body>
-    <main>
-        <div class="side-bar">
-            <div style="padding: 0px 20px;">
-                <img width="100%" src="logo_SJI2.png" alt="">
-            </div>
+{% extends 'base.html' %}
+{% load static %}
 
-<div class="side-nav">
-    <a class="active" href="">Acceuil</a>
-    <a href="">Staff</a>
-    <a href="">Mon profil</a>
-    <a href="">se deconnecter</a>
-</div>
-        </div>
+ {% block title %} isjtournamnt | home {% endblock %}
+ {% block style %}
+ <link rel="stylesheet" href="{%static 'style/home.css'%}">
+ {% endblock  %}
+
+
+ {% block 'content' %}
+
         <div class="tournaments-wrapper">
 <div style="position: relative;">
-    <img width="100%" src="io.jpg" alt="" style="">
+    <img width="100%" src="{% static 'image/io.jpg'%}" alt="" style="">
     <div style="position: absolute; height: 100%; top:0;width: 100%;"></div>
 
 </div>
@@ -39,6 +27,4 @@
 
 </div>
 </div>
- </main>
-</body>
-</html>
+{% endblock 'content' %}
