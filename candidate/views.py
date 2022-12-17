@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from django.views import View
 from django.views.generic.edit import FormView
 from .forms import AddCandidateForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 
@@ -12,14 +13,14 @@ class AboutView(TemplateView):
     
     
 
-class HomeView(View):
+class HomeView(LoginRequiredMixin,View):
     template_name = 'form_template.html'
     def get(self, request, *args, **kwargs):
         return  render(request,self.template_name)
     
 
 
-
+#view for add candidate
 class AddView(FormView):
     template_name = 'add_candidate.html'
     form_class = AddCandidateForm

@@ -3,6 +3,8 @@ from .models import Tournament
 from django.views.generic import TemplateView
 from django.views import View
 from django.views.generic.edit import FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 from .forms import AddTournamentForm
 # Create your views here.
@@ -18,7 +20,7 @@ class AboutView(TemplateView):
     
     
 
-class HomeView(TemplateView):
+class HomeView(LoginRequiredMixin,TemplateView):
     template_name = 'home.html'
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
@@ -26,7 +28,7 @@ class HomeView(TemplateView):
         return context
 
 
-class TournamentView(TemplateView):
+class TournamentView(TemplateView,LoginRequiredMixin):
     template_name = 'tournament.html'
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)

@@ -8,7 +8,7 @@
     {% block style %}{% endblock style %}
     <link rel="stylesheet" href="{% static 'style/base.css' %}">
 
-    <title>{% block 'title' %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
     <main>
@@ -18,16 +18,18 @@
             </div>
 
 <div class="side-nav">
-    <a class="active" href="{% url 'home' %}">Acceuil</a>
-    <a href="{% url 'staff' %}">Staff</a>
-    <a href="{% url 'staff' %}">Mon profil</a>
-    <a href="{% url 'logout' %}">se deconnecter</a>
+    <a class="{% if request.path == '/' %}active{% endif %} " href="{% url 'home' %}">Acceuil</a>
+    <a class="{% if request.path == '/staff/'%}active{% endif %} " href="{% url 'staff' %}">Staff</a>
+    <a class="{% if request.path == '' %}active{% endif %} " href="{% url 'staff' %}">Mon profil</a>
+    <a class="{% if request.path == '' %}active{% endif %} " href="{% url 'logout' %}">se deconnecter</a>
 </div>
         </div>
 
+        <div class="tournaments-wrapper">
+
         {% block 'content' %}{% endblock%}
 
-
+        </div>
     </main>
 </body>
 </html>

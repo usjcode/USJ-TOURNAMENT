@@ -6,8 +6,8 @@
  <link rel="stylesheet" href="{%static 'style/home.css'%}">
  {% endblock  %}
      {% block 'content' %}
-     <div class="tournaments-wrapper">
 
+{{TIME_ZONE}}
        
         <div class="tournaments">
             {% for t in tournaments  %}
@@ -22,10 +22,8 @@
         
             </a>
         {% endfor %}
-
-                </div>
         
-        
+        </div>
 
         
      
