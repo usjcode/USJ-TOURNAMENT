@@ -6,6 +6,7 @@ from django.views.generic.edit import FormView
 from django.contrib.auth import logout,views
 from django.shortcuts import redirect
 from .forms import AddStaffForm,LoginForm
+
 from .models import Staff
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
@@ -45,6 +46,13 @@ class LogoutView(View):
 
 class StaffProfilView(LoginRequiredMixin,TemplateView):
     template_name = 'profil.html'
+    def get_context_data(self, **kwargs):
+        id=kwargs["id"]
+        context=super().get_context_data(**kwargs)
+        staff=Staff.objects.get(id=id)
+        context["staff"]=staff
+        
+        return context
     
 
 

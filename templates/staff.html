@@ -6,10 +6,10 @@
 <link rel="stylesheet" href="{%static 'style/staff.css'%}">
 {% endblock  %}
 
-{% block 'content' %}
+{% block content %}
 <div class="cards">
     {%for staff in staffs %}
-    <a href="{% url 'staff' staff.pk %}" class="card">
+    <a href="{% url 'profil' staff.pk %}" class="card">
         <img src="{{staff.avatar.url}}" alt="" >
         <div>
             <h3>{{staff.name}}</h3>
