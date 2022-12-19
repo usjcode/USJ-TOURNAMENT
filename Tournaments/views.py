@@ -28,7 +28,7 @@ class HomeView(LoginRequiredMixin,TemplateView):
         return context
 
 
-class TournamentView(TemplateView,LoginRequiredMixin):
+class TournamentView(LoginRequiredMixin,TemplateView):
     template_name = 'tournament.html'
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
@@ -37,13 +37,11 @@ class TournamentView(TemplateView,LoginRequiredMixin):
 
 
 
-class AddView(FormView):
+class AddView(LoginRequiredMixin,FormView):
     template_name = 'add_tournament.html'
     form_class = AddTournamentForm
 
     def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
         form.send_email()
         return super().form_valid(form)
 

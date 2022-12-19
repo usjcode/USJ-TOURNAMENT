@@ -1,15 +1,12 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.views.generic.edit import FormView
-from django.contrib.auth import logout,views
+from django.contrib.auth import logout,authenticate,login
 from django.shortcuts import redirect
 from .forms import AddStaffForm,LoginForm
-
-from .models import Staff
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate,login
+from django.core.mail import EmailMessage
+from .models import Staff ,StaffInvitation,EmailUser
 
 
 
@@ -43,7 +40,6 @@ class LogoutView(View):
         return redirect("home")
         
 
-
 class StaffProfilView(LoginRequiredMixin,TemplateView):
     template_name = 'profil.html'
     def get_context_data(self, **kwargs):
@@ -55,18 +51,43 @@ class StaffProfilView(LoginRequiredMixin,TemplateView):
         return context
     
 
+class InvitationView(TemplateView):
+    template_name = 'invitation.html'
+    def get_context_data(self,**kwargs):
+        id=kwargs["id"]
+        invitation=StaffInvitation.objects.get(id=id)
+        randompassword="ccccc"
+        username="banana"
+        newuser:EmailUser
+        if invitation.active:
+        
+            newuser=EmailUser(username=username,email=invitation.email)
+            newuser.set_password(randompassword)
+            newuser.save()
+            Staff.objects.create(name=username,role=invitation.role,user=newuser)
+            
+            invitation.active=False
+            invitation.save()
+            
+        
+        context={
+            "password":randompassword,
+            "username":username,
+            "email":invitation.email
+        }
+        
+        return context
 
     
-
-
-
 class AddView(LoginRequiredMixin,FormView):
-    template_name = 'add_tournament.html'
+    template_name = 'add_staff.html'
     form_class = AddStaffForm
+    success_url="/staff"
 
     def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
-        form.send_email()
+        form.save()
         return super().form_valid(form)
+    
+    
+
 

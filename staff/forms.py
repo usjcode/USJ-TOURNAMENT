@@ -9,7 +9,7 @@ from django import forms
 
 
 # form for add staff member
-class AddStaffForm(forms.Form):
+class AddStaffForm(forms.ModelForm):
     class Meta:
         model = StaffInvitation
         fields = ('email', 'role')

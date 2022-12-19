@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} isjtournamnt | staff {% endblock %}
+{% block title %} isjtournamnt | add tournament{% endblock %}
 
 {% block content %}
+
+<div class="form-wrapper">
+    <form method="post">
+{{form}}
+<button type="submit"> create</button>
+    </form>
+<div>
+fff
 
 {%endblock%}

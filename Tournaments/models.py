@@ -18,10 +18,9 @@ class Tournament(models.Model):
         default="S0",
     )    
 
-    titre=models.CharField(max_length=100)
     description=models.TextField(null=True)
     date_annonce=models.DateTimeField(auto_now_add=True)
-    
+    nbr_place=models.IntegerField(default=300)    
 
 class OralSession(models.Model):
     date=models.DateField(null=True);

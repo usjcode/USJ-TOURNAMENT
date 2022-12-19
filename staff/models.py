@@ -33,6 +33,7 @@ class StaffInvitation(models.Model):
     send_date= models.DateField("", auto_now_add=True)
     role=models.CharField(max_length=100, null=True,choices=ROLE_CHOICE)
     note=models.TextField(null=True)
+    active=models.BooleanField(default=True)
     
     def __str__(self) -> str:
         return self.email + " " + self.role

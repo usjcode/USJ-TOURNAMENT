@@ -10,7 +10,7 @@
 <div class="cards">
     {%for staff in staffs %}
     <a href="{% url 'profil' staff.pk %}" class="card">
-        <img src="{{staff.avatar.url}}" alt="" >
+        <img src="" alt="" >
         <div>
             <h3>{{staff.name}}</h3>
             <h4>{{staff.bio}}</h4>
@@ -18,7 +18,7 @@
     </a>
     {%endfor%}
 
-    <a href="" class="card">
+    <a href="{% url 'add_staff' %}" class="card">
         <img src="" alt="" >
         <div>
             <h3>{{staff.name}}</h3>
