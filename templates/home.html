@@ -14,11 +14,21 @@
             <a  href="{% url 'tournament' t.pk %}" class="tournament">
                 <div class="content">
                           <h2>
-                    {{t.type}}
+                    {% if t.type == "cl1i" %}Concours  informatique licence 1
+                    {% elif t.type == "cl1m" %}Concours  management licence 1
+                    {% elif t.type == "cm1i"%}Concours  informatique master
+                    {% elif t.type == "cing1i" %} concours ingenieur inormatique niveau 1
+                    {%endif%}
+
+                    
                 </h2>
                 </div>
           
-        <div class="brand"></div>
+        <div class="brand 
+        
+        {% if t.type == "cl1m" %}brand-inf{%endif%}">
+    
+    </div>
         
             </a>
         {% endfor %}

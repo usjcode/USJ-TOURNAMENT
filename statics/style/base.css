@@ -12,6 +12,14 @@ body
 
 }
 
+
+.content-wrapper
+{
+ 
+overflow-y: auto;
+width: 100%;
+}
+
 main
 {
     position: fixed;

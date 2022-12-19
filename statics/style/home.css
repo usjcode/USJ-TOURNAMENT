@@ -6,12 +6,6 @@ main>div
 
 
 
-.tournaments-wrapper
-{
- 
-overflow-y: auto;
-width: 100%;
-}
 
 .tournaments
 {
@@ -38,7 +32,7 @@ width: 100%;
 }
 .brand-inf
 {
-background-color: rgb(9, 68, 177);
+background-color: rgb(0, 36, 102);
 }
 
 .brand-man
@@ -62,4 +56,9 @@ background-color: green;
     width: calc(100% + 20px);
     height: calc(200px + 10px) ;
     right:40px
+}
+
+.tournament h2
+{
+    font-size: 1.4rem;
 }

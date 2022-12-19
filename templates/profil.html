@@ -7,92 +7,31 @@
 {% endblock  %}
 {% block content %}
 
-<div class="" id="d1">   
-    <div class="form_general">     
-        <div class="form_parametrage">    
-            <div class="container">
+    <div class="profil-wrapper">     
+        <div class="profil">  
+            <div class="part1">  
+            <div class="avatar-container">
                 <img src="{{staff.avatar.url}}" alt="">
-                <input type="file" name="p_profil" id="formFile" >
             </div>
-            <br/>
-            <div class="c-aff">    
-                <br>
-                <br>
+            <div class="c-aff">  
+                
 
-                <output class="form-control ipre" type="name" placeholder=".Nom-d'utilisateur" id=""><img src="login.svg" class="imgc"> .Nom-d'utilisateur</output>
+       <span class="profil-info"> <img src="{% static 'image/login.svg'%}" class="imgc"> {{staff.name}}</span>
       
-                <output class="form-control ipre" type="tel" placeholder=".Contact" id=""><img src="tel.svg" class="imgc"> .Contact</output>
+<span class="profil-info"><img src="{% static 'image/tel.svg' %} " class="imgc"> {{staff.user.email}}</span> 
 
-                <output class="form-control ipre" type="tel" placeholder=".Email" id=""><img src="email.svg" class="imgc"> .Email</output>
+<span class="profil-info"><img src="{% static 'image/email.svg'%}" class="imgc"> {{staff.user.email}}</span>
             </div>
-            <div class="btn">
-                <br><button id="maj">Mettre a jour votre profil</button>
             </div>
+            <diV class="part1">
+                <span class="bio">{{staff.bio}}</span>
+                <div class="btn">
+                    <button id="maj">Mettre a jour votre profil</button>
+                </div>
+            </div>
+
         </div> 
-       </form> 
     </div> 
 </div>
-
-<div class="tournaments" id="d2">   
-    <div class="form_general"> 
-        <!-- <h1>Mettre a jour votre profil</h1> -->
-        <div class="form_parametrage">    
-            <div class="container">
-                <input type="file" name="p_profil" id="formFile" >
-            </div>
-            <br/>
-            <div class="form-group">
-                <label class="ipre" for="login"><img src="login.svg" class="imgc"> Nom d'utilisateur</label><br />                       
-                <input class="form-control" type="name" placeholder=".Nom-d'utilisateur" id="login">
-              </div>
-            <div class="form-group">
-                <label class="ipre" for="Contact"  for="Contact"><img src="tel.svg" class="imgc"> Contact</label><br />
-                <input class="form-control" type="tel" placeholder=".Contact" id="Contact">
-            </div>
-            <div class="form-group">
-                <label for="Email"  class="ipre" ><img src="email.svg" class="imgc"> Email</label><br />
-                <input class="form-control" type="tel" placeholder=".Email" id="Email">
-            </div>
-            <div class="form-group">
-                <!-- <label for="Password"  class="ipre" ><img src="key.png" class="imgc"> </label> -->
-                <br><button type="button" id="modif-passwd">Changer le mot de passe </button>
-            </div>
-            <div class="btn">
-                <br><button type="button" id="enregistrer">Enregistrer</button>
-                <br><button type="button" id="annuler">Annuler</button>
-            </div>
-        </div> 
-        
-    </div> 
-</div>
-<div class="tournaments" id="d3">
-    <div class="form_general"> 
-        <!-- <h1>Mettre a jour votre profil</h1> -->
-        <div class="form_parametrage">    
-            <div class="container">
-                <input type="file" name="p_profil" id="formFile" >
-            </div>
-            <br/>
-            <div class="form-group">
-                <label for="Password"  class="ipre" ><img src="key.svg" class="imgc"> Mot de passe actuel</label><br />
-                <input class="form-control" type="tel" placeholder=".Password" id="Password">
-            </div>
-            <div class="form-group">
-                <label for="Password"  class="ipre" ><img src="key.svg" class="imgc"> Nouveau mot de passe</label><br />
-                <input class="form-control" type="tel" placeholder=".Password" id="Password">
-            </div>
-            <div class="form-group">
-                <br><button type="button" id="enregistrer-passwd">Enregistrer les modifications</button>
-            </div>
-            <br>
-            <div class="form-group">
-                <br><button type="button" id="annuler-passwd">Annuler</button>
-            </div>
-            <!-- <br>
-            <div class="form-group">
-                <br><button type="button" id="passwd-oublier">Mot de passe oublier ?</button>
-            </div> -->
-        </div>
-    </div>
 
 {%endblock%}

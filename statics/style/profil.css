@@ -3,157 +3,80 @@
     padding: 0;
   }
   
-  .form_parametrage{
-      width:950px;
-      margin:0 auto;
-      margin-top:3%;
-      background: white;
-      padding: 25px;
-      border: 1px #b4b7ccd5 solid;
-  } 
-  
-  #formFile {
-    opacity: 0;
-    width: 100%; height: 100%;
+ 
+
+  .profil-wrapper
+  {
+     padding: 20px 100px;
+    margin: auto;
   }
   
-  .form-control{
+.bio
+{
+  font-size: 1.2rem;
+
+}
+  
+  .profil
+  {
     padding:.5rem 1rem;
     font-size:1.3rem;
     width: 100%;
     margin-bottom: 25px;
     margin-top: 10px;
-  }
-  
-  #enregistrer, #annuler{
-    width: 20%;
-    font-size:1.3rem;
-    background-color:rgb(26, 105, 224);
-    height: 35px;
-    box-shadow: 5PX 7px 5px 5px rgb(228, 228, 228);
-    margin-left: 15%;
-    margin-right: 15%;
-    border: none;
-    color: white;
-  }
-  #modif-passwd{
-    width: 100%;
-    height: 45px;
-    font-size:1.3rem;
-    border: none;
-    background-color:rgb(26, 105, 224);
-    color: white;
-    margin-bottom: 20px;
-    margin-top: -20px;
-    
-  }
-  
-  #enregistrer-passwd, #annuler-passwd, #passwd-oublier, #passwd-réini,#passwd-continuer,#annuler-reini{
-    height: 45px;
-    width: 100%;
-    font-size:1.3rem;
-    border: none;
-  }
-  
-  #enregistrer-passwd,#passwd-continuer{
-    color: white;
-    background-color: rgb(26, 105, 224);
-  }
-  
-  #annuler-passwd,#annuler-reini{
     background-color: white;
-   
-  }
-  
-  #passwd-oublier{
-    color: rgb(26, 105, 224);
-    background: none;
-    border: none;
-  }
-  
-  #passwd-réini{
-    color: rgb(26, 105, 224);
-    background-color: white;
-  }
-  .btn{
     display: flex;
-    flex-direction: row;
-    text-align: center;
-    align-items:flex-start;
+    justify-content: center;
+    box-shadow: 5PX 7px 15px 3px rgb(192, 192, 192);
+
   }
+
+
   
-  input[type=text], input[type=text], input[type=email]{
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-   }
-  
-  .profile {
-    position: absolute;
-    display: flex; align-items: center;
-    bottom: 20px; left: 25px;
-  }
-  
-  .container {
+  .avatar-container {
     margin: auto;
-    width: 25%; height: 200px;
-    background-image: url('b1.jpg');
-    background-size: cover;
-    border-radius: 5px;
     overflow: hidden;
-    width: 175px; height: 180px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
+    border: rgb(0, 0, 0) 5px solid;
   }
   
-  #d1 {
-    display:block;
-  }
-  
-  #d2 {
-    display:none;
-  }
-  
-  #d3 {
-    display:none;
-  }
-  
-  #d4 {
-    display:none;
-  }
+
   
   #maj {
-    width: 35%;
     color: white;
     font-size:1.3rem;
     background-color:rgb(26, 105, 224);
     height: 35px;
     box-shadow: 5PX 7px 5px 5px rgb(228, 228, 228);
-    margin-left: 35%;
     border: none;
+    margin-top: 20px;
+    padding: 8px 30px;
+    box-sizing: content-box;
+    
   }
   
   .c-aff {
     position: relative;
     display: flex;
     flex-direction: column;
-    margin-left: 35%;
+  }
+
+  .profil-info
+  {
+    display: flex;
+    font-size: 1.3rem;
+    align-items: center;
+    padding: 20px;
   }
   
   .imgc{
     width: 25px; 
     height: 25px;
+    margin-right: 5px;
   }
-  
-  .ipre{
-    font-size: 1.5rem;
-  }
-  
-  label{
-    font-size: 1.5rem;
-  }
+
   
   h1{
     text-align: center;
