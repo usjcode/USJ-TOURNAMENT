@@ -5,8 +5,10 @@ from django.views import View
 from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-
 from .forms import AddTournamentForm
+
+
+
 # Create your views here.
 
 

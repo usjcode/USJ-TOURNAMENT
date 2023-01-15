@@ -10,7 +10,6 @@ urlpatterns = [
     path('login',LoginView.as_view(), name='login'),
     path("invitation/<id>",InvitationView.as_view(),name='invitation'),
     path('<id>',StaffProfilView.as_view(),name="profil"),
-    
 
 
 
