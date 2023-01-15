@@ -15,8 +15,11 @@ body
 
 .content-wrapper
 {
+<<<<<<< HEAD
  
 padding-top: 10px;
+=======
+>>>>>>> master
 overflow-y: auto;
 width: 100%;
 }

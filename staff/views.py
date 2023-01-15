@@ -8,6 +8,10 @@ from .forms import AddStaffForm,LoginForm
 from django.core.mail import EmailMessage
 from .models import Staff ,StaffInvitation,EmailUser
 
+##################### voici les trois imports ##################################
+from django.shortcuts import render
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 # staff's view
@@ -57,7 +61,7 @@ class InvitationView(TemplateView):
         id=kwargs["id"]
         invitation=StaffInvitation.objects.get(id=id)
         randompassword="ccccc"
-        username="banana"
+        username=invitation.email
         newuser:EmailUser
         if invitation.active:
         
@@ -69,12 +73,15 @@ class InvitationView(TemplateView):
             invitation.active=False
             invitation.save()
             
+            
+            
         
         context={
             "password":randompassword,
             "username":username,
             "email":invitation.email
         }
+        
         
         return context
 
@@ -85,8 +92,22 @@ class AddView(LoginRequiredMixin,FormView):
     success_url="/staff"
 
     def form_valid(self, form):
-        form.save()
+        inv = form.save()
+      
+ ################################################# voici le CODE ###############################################     
+      
+        mail_send = inv.email
+        id_send = inv.id
+                
+        send_mail("INVITATION POUR L'UTILISATION DU LOGICIEL DE GESTION DE CONCOURS DE USJ",
+            'Veuiller cliquez ici pour active votre compte utilisateur 127.0.0.1:8000/staff/invitation/{}'.format(id_send),
+            'TON ADDRESSE MAIL',
+            [mail_send],
+            fail_silently=False
+        )
+          
         return super().form_valid(form)
+
     
     
 
