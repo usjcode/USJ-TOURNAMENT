@@ -20,6 +20,8 @@ class Tournament(models.Model):
 
     description=models.TextField(null=True)
     date_annonce=models.DateTimeField(auto_now_add=True)
+    date_inscription=models.DateTimeField(null=True)
+
     nbr_place=models.IntegerField(default=300)    
 
 class OralSession(models.Model):

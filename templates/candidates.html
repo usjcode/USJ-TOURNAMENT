@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} isjtournament | candidate {% endblock %}
+
+{% block content %}
+<form class="d-flex w-50 m-auto">
+    <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
+
+
+<div class="m-4">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item mt-4 d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Product name</h6>
+              <small class="text-muted">Brief description</small>
+            </div>
+            <span class="text-muted">$12</span>
+          </li>
+
+          <li class="list-group-item mt-4 d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Product name</h6>
+              <small class="text-muted">Brief description</small>
+            </div>
+            <span class="text-muted">$12</span>
+          </li>
+          
+          <li class="list-group-item mt-4 d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Product name</h6>
+              <small class="text-muted">Brief description</small>
+            </div>
+            <span class="text-muted">$12</span>
+          </li>
+          
+       
+      </ul>
+    
+</div>
+
+{%endblock%}

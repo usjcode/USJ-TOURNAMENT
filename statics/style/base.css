@@ -16,6 +16,7 @@ body
 .content-wrapper
 {
  
+padding-top: 10px;
 overflow-y: auto;
 width: 100%;
 }
@@ -40,19 +41,19 @@ a
 {
     text-decoration: none;
     color: black;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 .side-nav a
 {
 padding: 20px;
-margin-top:10px;
+margin-top:5px;
 
 }
 
 .side-nav
 {
-    margin-top: 100px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
 }

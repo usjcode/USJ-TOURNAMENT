@@ -1,6 +1,6 @@
 .cards
 {
-    margin-top: 100px;
+    margin-top: 25px;
     display: grid;
     flex-wrap: wrap;
     grid-template-columns: repeat(3, 1fr);
