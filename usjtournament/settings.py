@@ -79,6 +79,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Tournaments.context_processor.tournament_context',
+                'staff.context_processor.staff_context'
             ],
         },
     },

@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 # Create your models here.
-
+from django import forms
 class Tournament(models.Model):
     YEAR_IN_SCHOOL_CHOICES = [
         ('cl1i', 'Concours licence I informatique'),
@@ -20,7 +20,7 @@ class Tournament(models.Model):
 
     description=models.TextField(null=True)
     date_annonce=models.DateTimeField(auto_now_add=True)
-    date_inscription=models.DateTimeField(null=True)
+    date_inscription=models.DateTimeField(null=True,verbose_name="date limite d'inscription")
 
     nbr_place=models.IntegerField(default=300)    
 

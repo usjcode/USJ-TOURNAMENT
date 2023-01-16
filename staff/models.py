@@ -15,7 +15,7 @@ class Staff(models.Model):
                  ("RCM1I","responsable de concours master 1 informatique"),
                  ("RCINGI","responsable de concours ingenieur informatique")
                  ]
-    avatar=models.ImageField(null=True)
+    avatar=models.ImageField(default="default.jpeg")
     name = models.CharField(max_length=100, blank=True, null=True)
     role=models.CharField(max_length=50,choices=ROLE_CHOICE)
     bio=models.TextField(default="do you know ngdream likes banana ???")

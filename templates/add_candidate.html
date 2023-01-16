@@ -24,8 +24,7 @@ border-radius: .25rem;
 transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     }
 </style>
-
-{% if cl1 == True%}
+{% if c == True%}
 <div>
     <form action="" method="post">
      {%csrf_token%}
@@ -303,4 +302,7 @@ transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 </div>
 
 {%endif%}
+
+
+
 {%endblock%}

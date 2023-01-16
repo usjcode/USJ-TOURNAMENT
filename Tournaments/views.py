@@ -33,17 +33,21 @@ class HomeView(LoginRequiredMixin,TemplateView):
 class TournamentView(LoginRequiredMixin,TemplateView):
     template_name = 'tournament.html'
     def get_context_data(self, **kwargs):
+        id=kwargs.get('id')
+        
         context=super().get_context_data(**kwargs)
+        context['tournament']=Tournament.objects.get(id=id)
         return context
     
 
 
 
 class AddView(LoginRequiredMixin,FormView):
+    success_url="/"
     template_name = 'add_tournament.html'
     form_class = AddTournamentForm
 
     def form_valid(self, form):
-        form.send_email()
+        form.save()
         return super().form_valid(form)
 

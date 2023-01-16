@@ -3,7 +3,7 @@
 {% block title %} isjtournament | candidate {% endblock %}
 
 {% block content %}
-<form class="d-flex w-50 m-auto">
+<form class="d-flex w-50 m-auto mt-2">
     <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-primary" type="submit">Search</button>
 </form>
@@ -11,33 +11,78 @@
 
 <div class="m-4">
     <ul class="list-group list-group-flush">
-        <li class="list-group-item mt-4 d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Product name</h6>
-              <small class="text-muted">Brief description</small>
-            </div>
-            <span class="text-muted">$12</span>
-          </li>
+       {% for c in candidats%}
 
-          <li class="list-group-item mt-4 d-flex justify-content-between lh-sm">
+          <li class="list-group-item mt-4 py-3 d-flex justify-content-between lh-sm">
             <div>
-              <h6 class="my-0">Product name</h6>
-              <small class="text-muted">Brief description</small>
+              <h6 class="my-2">{{c.name}} {{c.lastname}}</h6>
+              <small class="text-muted">
+                {% if c.tournament.type == 'cl1i'%}
+              concours informatique licence 1
+                {% elif c.tournament.type == 'cing1i' %}
+                concours informatique ingenieur 1
+                {% elif c.tournament.type == 'cing3i' %}
+                concours informatique ingenieur 3
+                {% elif c.tournament.type == 'cm1i' %}
+                concours informatique master 1
+                {% elif c.tournament.type == 'cl1m' %}
+                concours management licence 1
+                {% elif c.tournament.type == 'cm1m' %}
+                concours management master 1
+                {%endif%}
+
+              </small>
             </div>
-            <span class="text-muted">$12</span>
-          </li>
-          
-          <li class="list-group-item mt-4 d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Product name</h6>
-              <small class="text-muted">Brief description</small>
-            </div>
-            <span class="text-muted">$12</span>
-          </li>
-          
+            <span class="text-muted">{{c.cni_number}}</span>
+
+            {%if request.user.staff.role is  'S'%}
+            <div class="dropdown">
+              <button class="btn btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                options
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="{%url 'update_candidate' c.id%}">modifier</a></li>
+                <li><a class="dropdown-item" href="{%url 'update_candidate_tournament' c.id%}">changer le concour</a></li>
+                <li><a class="dropdown-item" href="{%url 'delete_candidate'  c.id%}">supprimer</a></li>
+              </ul>
+            </div> 
+          {%endif%}
+          </li> 
+        {%endfor%}
        
       </ul>
     
 </div>
+
+{%if request.user.staff.role ==  'S'%}
+<button class="add" href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  +
+</button> 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">choisissez un concour</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <p>        <a class="btn btn-primary"  href="{%url 'add_candidate'  'cing1i' %}"> concour ingenieur i informatique</a>
+      </p>
+        <p> <a class="btn btn-primary" href="{%url 'add_candidate'  'cl1i' %}"> concour licence 1 informatique</a> </p>   
+        <p> <a class="btn btn-primary" href="{%url 'add_candidate'  'cm1i' %}">concour master 1 informatique</a></p>
+<p>   <a class="btn btn-danger" href="{%url 'add_candidate'  'cl1m' %}"> concour licence 1 management</a>
+</p>
+     <p>
+      <a class="btn btn-danger"  href="{%url 'add_candidate'  'cm1m' %}">concour master 1 management</a>
+     </p>
+      
+      </div>
+
+    </div>
+  </div>
+</div>
+{%endif%} 
 
 {%endblock%}

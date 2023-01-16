@@ -4,8 +4,6 @@ from Tournaments.models import Tournament
 # Create your models here.
 
 
-
-
 class Candidacy(models.Model):
     SEX=[
         ("M","masculin"),
@@ -13,22 +11,32 @@ class Candidacy(models.Model):
         
         ]
     
-    DIPLOMES=[
+    classes=[
+        ("autre","autre"),  
+        ("sizieme","sizieme"),
+        ("cinquieme","cinquieme"),
+        ("quatrieme","quatrieme"),
+        ("troizieme","troizieme"),
+        ("seconde","seconde"),
+        ("pemiere","premiere"),
+        ("terminale","terminale")
         
     ]
+    
+    
     tournament=models.ForeignKey(Tournament, on_delete=models.CASCADE,null=True)
     anonymat_number=models.IntegerField(null=True)
     name = models.CharField(max_length=100,null=True)
     lastname= models.CharField(max_length=100,null=True)
     photo= models.ImageField(null=True,blank=True)
-    sex=models.CharField(max_length=1,null=True,verbose_name="votre sex")
+    sex=models.CharField(max_length=1,default='M',verbose_name="votre sex",choices=SEX)
     birth_date= models.DateField(null=True)
     birth_place=models.CharField(max_length=100,null=True)
     bacc=models.BooleanField(default=True)
     obtentionyear=models.IntegerField(default=2022,verbose_name="année d'obtention",null=True)
     exschool=models.CharField(max_length=100,null=True,verbose_name="votre établissement")
     hasrepeated=models.BooleanField(default=False,verbose_name="avez vous déja redoublé ?")
-    repeatedclasse=models.CharField(null=True,blank=True,max_length=50,verbose_name="classe repété")
+    repeatedclasse=models.CharField(null="terminale",blank=True,max_length=50,verbose_name="classe repété",choices=classes)
     mention=models.CharField(default="passable",max_length=100)
     examcenter=models.CharField(default="yaoundé",verbose_name="centre d'examination",max_length=100)
     exschoolcity=models.CharField(max_length=100,null=True,verbose_name="ville de votre établissement")

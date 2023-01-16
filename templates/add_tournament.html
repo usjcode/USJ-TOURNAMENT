@@ -9,6 +9,7 @@
     height: 100%;
     display: flex;
     justify-content: center;    
+    align-items: center;
 }
 form {
     display: flex;
@@ -16,43 +17,43 @@ form {
     justify-content: center;
     font-size: xx-large;
     background-color: white;
-    margin-top: 150px;
-    margin-bottom: 150px;
     padding: 25px;
     border-radius:5px;
 }
 button {
-    margin-top: 25px;
     border: none;
     font-size:1.5rem;
     color: white;
     background-color: rgb(26, 105, 224);
-    height:100px;
+    height:40px;
     box-shadow: 5PX 7px 5px 5px rgb(228, 228, 228);
     border-radius:2px;
+    margin-top:15px;
 }
 select{
     font-size:1.3rem;
-    height:100px;
+    height:30px;
 }
-input{
-    height:100px;
+input {
+    height:30px;
     font-size:1.3rem;
 }
 label {
-    widt:80px;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 15px;
+    padding-bottom: 5px;
     font-size:1.5rem;
 }
 textarea{
     font-size: 1.3rem;
-    padding:30px;
+    padding:5px;
+    height:100px
 }
 </style>
 
 <div class="form-wrapper">
     <form method="post">
+
+{% csrf_token %}
 {{form}}
 <button type="submit"> create</button>
     </form>

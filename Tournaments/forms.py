@@ -7,6 +7,10 @@ class AddTournamentForm(forms.ModelForm):
     class Meta:
         model=Tournament
         fields=("__all__")
+        widgets={
+            "date_inscription":forms.DateInput(attrs={"type":"date"})
+        }
+        
     
     
     

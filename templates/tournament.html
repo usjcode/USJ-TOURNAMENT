@@ -10,16 +10,19 @@
  {% block content %}
 
         <div class="tournaments-wrapper">
-<div style="position: relative;">
-    <img width="100%" src="{% static 'image/io.jpg'%}" alt="" style="">
-    <div style="position: absolute; height: 100%; top:0;width: 100%;"></div>
 
-</div>
 <div>
-<div style="color: white;position:relative;width:200px ; margin:0 auto ;padding:15px ; box-sizing:unset; background-color: rgb(23, 69, 155);bottom: 40px;">
+{% if tournament.type in ct%}
+<div style="color: white;position:relative;width:220px ; margin:0 auto ;padding:15px ; box-sizing:unset; background-color: rgb(23, 69, 155);">
 <h1 style="text-align: center;">
  Concours informatique
   </h1>
+  {%else%}
+  <div style="color: white;position:relative;width:220px ; margin:0 auto ;padding:15px ; box-sizing:unset; background-color: rgb(180, 20, 15);">
+    <h1 style="text-align: center;">
+     Concours management
+      </h1>
+  {%endif%}
  
 </div>
 

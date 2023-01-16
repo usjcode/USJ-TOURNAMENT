@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.urls import path
-from .views import AboutView,AddView,HomeView,AddCCL1IView
-
+from .views import AboutView,ChoiseAddView,HomeView,AddView,Updateview, deleteview
 urlpatterns = [
     path('',HomeView.as_view(),name='candidate'),
-    path('about',AboutView.as_view()),
-    path('add',AddView.as_view(), name='choice_add_candidate'),
-    path('add/CCL1I',AddCCL1IView.as_view(), name='add_candidate'),
+    path('add/<tournament>',AddView.as_view(), name='add_candidate'),
+    path('<pk>/update',Updateview.as_view(), name='update_candidate'),
+    path('<id>/delete',deleteview, name='delete_candidate'),
+    
 
 ]

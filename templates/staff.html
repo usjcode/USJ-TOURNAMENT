@@ -18,13 +18,15 @@
     </a>
     {%endfor%}
 
-    <a href="{% url 'add_staff' %}" class="card">
-        <img src="" alt="" >
-        <div>
-            <h3>{{staff.name}}</h3>
-            <h4>{{staff.bio}}</h4>
-        </div>
-    </a>
-   
+
+
 </div>
+
+{%if request.user.staff.role ==  'D'%}
+
+<a class="add" href="{% url 'add_staff'%}">
+    +
+</a>    
+
+{%endif%}
 {%endblock%}

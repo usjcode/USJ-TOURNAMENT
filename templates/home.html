@@ -26,7 +26,7 @@
           
         <div class="brand 
         
-        {% if t.type == "cl1m" %}brand-inf{%endif%}">
+        {% if t.type == "cl1i" or t.type == "cing1i" or t.type == "cing3i" %}brand-inf{%endif%}">
     
     </div>
         
@@ -35,6 +35,10 @@
         
         </div>
 
-        
+        {%if request.user.staff.role  in rc%}
+        <a class="add" href="{% url 'add_tournament'%}">
+            +
+        </a>    
+        {%endif%}    
      
      {% endblock  %}
