@@ -26,13 +26,13 @@ class Candidacy(models.Model):
     
     tournament=models.ForeignKey(Tournament, on_delete=models.CASCADE,null=True)
     anonymat_number=models.IntegerField(null=True)
-    name = models.CharField(max_length=100,null=True)
-    lastname= models.CharField(max_length=100,null=True)
+    name = models.CharField(max_length=100,null=True,verbose_name="nom")
+    lastname= models.CharField(max_length=100,null=True,verbose_name="prenom")
     photo= models.ImageField(null=True,blank=True)
     sex=models.CharField(max_length=1,default='M',verbose_name="votre sex",choices=SEX)
-    birth_date= models.DateField(null=True)
-    birth_place=models.CharField(max_length=100,null=True)
-    bacc=models.BooleanField(default=True)
+    birth_date= models.DateField(null=True,verbose_name="date de naissance")
+    birth_place=models.CharField(max_length=100,null=True,name="lieu de naissance")
+    bacc=models.BooleanField(default=True,verbose_name="avez vous le baccaléaurat??")
     obtentionyear=models.IntegerField(default=2022,verbose_name="année d'obtention",null=True)
     exschool=models.CharField(max_length=100,null=True,verbose_name="votre établissement")
     hasrepeated=models.BooleanField(default=False,verbose_name="avez vous déja redoublé ?")
@@ -42,7 +42,7 @@ class Candidacy(models.Model):
     exschoolcity=models.CharField(max_length=100,null=True,verbose_name="ville de votre établissement")
     series=models.CharField(default="E",max_length=10,verbose_name="votre série")
     
-    nationality=models.CharField(null=True,max_length=100)
+    nationality=models.CharField(null=True,max_length=100,verbose_name="nationnalité")
     
     email = models.EmailField(max_length=100,null=True)
     baccmark=models.IntegerField(default=10,verbose_name="moyenne générale au bacc")
@@ -50,7 +50,7 @@ class Candidacy(models.Model):
     phone = models.CharField(max_length=100,null=True,verbose_name="téléphone")
     region=models.CharField(max_length=100,null=True)
     adresse=models.CharField(max_length=100,null=True)
-    cni_number = models.CharField(max_length=1000,null=True,verbose_name="numéro de cni")
+    cni_number = models.PositiveBigIntegerField(null=True,verbose_name="numéro de cni")
 
     nompere=models.CharField(max_length=100,null=True,verbose_name="nom de la mere")
     nommere=models.CharField(max_length=100,null=True,verbose_name="nom du pere")

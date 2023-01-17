@@ -35,19 +35,49 @@
             </div>
             <span class="text-muted">{{c.cni_number}}</span>
 
-            {%if request.user.staff.role is  'S'%}
+            {%if request.user.staff.role ==  'S'%}
             <div class="dropdown">
               <button class="btn btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 options
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" href="{%url 'update_candidate' c.id%}">modifier</a></li>
-                <li><a class="dropdown-item" href="{%url 'update_candidate_tournament' c.id%}">changer le concour</a></li>
+                <li>
+                  <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#updatetournament{{c.id}}">changer le concour</a>
+
+
+                </li>
                 <li><a class="dropdown-item" href="{%url 'delete_candidate'  c.id%}">supprimer</a></li>
               </ul>
             </div> 
           {%endif%}
           </li> 
+
+
+          <!-- Modal -->
+<div class="modal fade" id="updatetournament{{c.id}}" tabindex="-1" aria-labelledby="updatetournamentlabel{{c.id}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updatetournamentlabel">choisissez un concour</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <p>        <a class="btn btn-primary"  href="{%url 'update_candidate_tournament' c.id 'cing1' %}" > concour ingenieur i informatique</a>
+      </p>
+        <p> <a class="btn btn-primary" href="{%url 'update_candidate_tournament' c.id 'cl1i' %}"> concour licence 1 informatique</a> </p>   
+        <p> <a class="btn btn-primary" href="{%url 'update_candidate_tournament' c.id 'cm1i' %}">concour master 1 informatique</a></p>
+<p>   <a class="btn btn-danger" href="{%url 'update_candidate_tournament' c.id 'cl1m' %}"> concour licence 1 management</a>
+</p>
+     <p>
+      <a class="btn btn-danger"  href="{%url 'update_candidate_tournament' c.id 'cm1m' %}">concour master 1 management</a>
+     </p>
+      
+      </div>
+
+    </div>
+  </div>
+</div>
         {%endfor%}
        
       </ul>
@@ -83,6 +113,10 @@
     </div>
   </div>
 </div>
+
+
+
+
 {%endif%} 
 
 {%endblock%}

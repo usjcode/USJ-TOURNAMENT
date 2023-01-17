@@ -44,9 +44,6 @@ class AddView(FormView):
         tournament=Tournament.objects.filter(date_inscription__gt=Now(),type=type).first()
         candidat.tournament=tournament
         candidat.save()
-        
-        tournament.nbr_place-=1
-        tournament.save()
         return super().form_valid(form)
     
     def get_context_data(self, **kwargs):
@@ -70,6 +67,26 @@ class Updateview(UpdateView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+    
+    
+class Updatetournamentview(LoginRequiredMixin,View):
+        def get(self, request, *args, **kwargs):
+            id=kwargs["pk"]
+            tournamentname=kwargs["tournament"]
+            candidat=Candidacy.objects.get(id=id)
+            exist=Tournament.objects.filter(date_inscription__gt=Now(),type=tournamentname).exists()
+            success=False
+            if exist:
+                tournament=Tournament.objects.filter(date_inscription__gt=Now(),type=type).first()
+                candidat.tournament=tournament
+                candidat.save()
+                success=True
+                
+            return  render(request,"updatecandidatetournament.html",context={"success":success})
+
+    
+    
+    
     
 
 

@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Tournament
 from django.views.generic import TemplateView
 from django.views import View
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView,UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import AddTournamentForm
@@ -50,4 +50,17 @@ class AddView(LoginRequiredMixin,FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+    
 
+
+class Updateview(UpdateView):
+    template_name = 'add_candidate.html'
+    model = Tournament
+    form_class = AddTournamentForm
+    success_url='/tournament'
+
+
+def deleteview(request,id):
+    Tournament=Tournament.objects.get(id=id)
+    Tournament.delete()
+    return redirect("tournament")
