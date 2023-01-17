@@ -11,9 +11,21 @@
        
         <div class="tournaments">
             {% for t in tournaments  %}
-            <a  href="{% url 'tournament' t.pk %}" class="tournament">
-                <div class="content">
-                          <h2>
+            <div class="tournament">
+
+
+            <div class="dropdown m-1">
+                <a  type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-gear"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="{% url 'update_tournament' t.id%}">modifier</a></li>
+
+                  <li><a class="dropdown-item" href="{% url 'delete_tournament' t.id%}">supprimer</a></li>
+                </ul>
+              </div> 
+                <a  href="{% url 'tournament' t.pk %}"  class="content">
+                          <h2 class="text-center">
                     {% if t.type == "cl1i" %}Concours  informatique licence 1
                     {% elif t.type == "cl1m" %}Concours  management licence 1
                     {% elif t.type == "cm1i"%}Concours  informatique master
@@ -22,13 +34,21 @@
 
                     
                 </h2>
+                <div class="text-right pt-2 text-muted">
+                    {{t.description}}
                 </div>
+
+
+
+            </a>
           
         <div class="brand {% if t.type in ct %}brand-inf{%endif%}">
+
+
     
     </div>
         
-            </a>
+</div>
         {% endfor %}
         
         </div>

@@ -26,12 +26,7 @@ def deleteview(request,id):
     candidate.delete()
     return redirect("candidate")
 
-#view for add candidate
-class ChoiseAddView(LoginRequiredMixin,FormView):
-    template_name = 'add_candidate.html'
-    form_class = AddCandidateForm
-    def form_valid(self, form):
-        pass
+
 
 class AddView(FormView):
     template_name = 'add_candidate.html'
@@ -41,6 +36,7 @@ class AddView(FormView):
     def form_valid(self, form):
         candidat=form.save(commit=False)
         type=self.kwargs["tournament"]
+        print(type)
         tournament=Tournament.objects.filter(date_inscription__gt=Now(),type=type).first()
         candidat.tournament=tournament
         candidat.save()
@@ -52,7 +48,7 @@ class AddView(FormView):
         # Add in a QuerySet of all the books
         print(self.kwargs["tournament"])
         context['c'] = Tournament.objects.filter(date_inscription__gt=Now(),type=self.kwargs["tournament"]).exists()
-        
+        print(context['c'])
         return context
 
 

@@ -31,7 +31,7 @@ class Candidacy(models.Model):
     photo= models.ImageField(null=True,blank=True)
     sex=models.CharField(max_length=1,default='M',verbose_name="votre sex",choices=SEX)
     birth_date= models.DateField(null=True,verbose_name="date de naissance")
-    birth_place=models.CharField(max_length=100,null=True,name="lieu de naissance")
+    birth_place=models.CharField(max_length=100,null=True,verbose_name="lieu de naissance")
     bacc=models.BooleanField(default=True,verbose_name="avez vous le baccaléaurat??")
     obtentionyear=models.IntegerField(default=2022,verbose_name="année d'obtention",null=True)
     exschool=models.CharField(max_length=100,null=True,verbose_name="votre établissement")

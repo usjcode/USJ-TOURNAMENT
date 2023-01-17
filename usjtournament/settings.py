@@ -42,6 +42,7 @@ if DEBUG:
 # Application definition
 
 INSTALLED_APPS = [
+    'fontawesomefree',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,9 +51,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Tournaments',
     'staff',
-    'candidate'
+    'candidate',
+    
     
 ]
+
+
 
 AUTH_USER_MODEL = 'staff.EmailUser' 
 AUTHENTICATION_BACKENDS = ['staff.staffbackends.EmailBackend'] 

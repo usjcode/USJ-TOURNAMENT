@@ -88,7 +88,7 @@ background-color: #f7f7F7!important;
 border-right: 2px rgb(26, 105, 224) solid ;
 }
 
-a:hover
+.side-bar a:hover
 {
     background-color: #f4f4f4;
 }
