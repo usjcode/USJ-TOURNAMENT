@@ -28,8 +28,8 @@ DEBUG = True
 ####################################### VOICI EGALEMENT LES SIX LIGNES AJOUTEES #########################################################
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'lepositifcl@gmail.com'
-EMAIL_HOST_PASSWORD = 'uijmafnjbvxvrjpi'
+EMAIL_HOST_USER = 'ngdream1953@gmail.com'
+EMAIL_HOST_PASSWORD = 'amapomtkstmcftlx'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

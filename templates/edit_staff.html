@@ -4,15 +4,15 @@
 {% block title %} isjtournamnt | staff {% endblock %}
 
 {% block content %}
-<div class="c-form">
-<form method="post" enctype="multipart/form-data" >
+
+<div class="form bg-white m-auto p-4" style="width:600px">
+<form method="post" class=""  enctype="multipart/form-data" >
     {% csrf_token %}
-    <div class="form-group">
+    <div class="form-group" >
 
         <label for="exampleInputEmail1">avatar</label>
         {{form.avatar}}
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-      </div>
+          </div>
       <div class="form-group">
         <label for="exampleInputPassword1">nom</label>
         {{form.name}}
@@ -29,10 +29,10 @@
         <label for="exampleInputPassword1">contact</label>
         {{form.contact}}
       </div>
-      <button type="submit" class="btn btn-primary">sauvegarder</button>
+      <button type="submit" class="btn w-100 btn-lg mt-4 btn-primary">sauvegarder</button>
       {{form.errors}}
 </form>
-<a class="btn-danger btn" href="{% url 'change_password'%}">changer le mot de passe<a/>
+<a class="btn-danger btn btn-lg w-100 mt-4" href="{% url 'change_password'%}">changer le mot de passe<a/>
 </div>
 
 {%endblock%}
