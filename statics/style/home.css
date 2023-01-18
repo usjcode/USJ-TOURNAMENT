@@ -28,7 +28,14 @@ main>div
 .content
 {
     width: 100%;
+    display: flex;
+    flex-direction: column;
 
+}
+
+.content .description
+{
+    height: 100%;
 }
 .brand-inf
 {

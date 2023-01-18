@@ -1,26 +1,65 @@
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView,UpdateView
 from django.contrib.auth import logout,authenticate,login
-from django.shortcuts import redirect
-from .forms import AddStaffForm,LoginForm
+from django.contrib.auth.models import User
+from django.shortcuts import redirect ,render
+from .forms import AddStaffForm,LoginForm,EditUserForm,Passwordform
 from django.core.mail import EmailMessage
-from .models import Staff ,StaffInvitation,EmailUser
-
-##################### voici les trois imports ##################################
-from django.shortcuts import render
+from .models import StaffInvitation,EmailUser
 from django.core.mail import send_mail
-from django.conf import settings
+from django.contrib.auth import update_session_auth_hash
 
+import random
+import string
 
+def get_random_string(length):
+    # choose from all lowercase letter
+    letters = string.ascii_lowercase
+    result_str = ''.join(random.choice(letters) for i in range(length))
+    return result_str
+
+def change_password(request):
+    if request.method == 'POST':
+        form = Passwordform(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('staff')
+    else:
+        form = Passwordform(request.user)
+    return render(request, 'change-password.html', {
+        'form': form
+    })
+
+class EditView(UpdateView,LoginRequiredMixin):
+    template_name = 'edit_staff.html'
+    form_class = EditUserForm
+    success_url="/staff"
+    model=EmailUser
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+def staffremove(request,id):
+    staff=EmailUser.objects.get(id=id)
+    send_mail("alerte suppression de compte",
+            'votre compte à été supprimer par un administrateur',
+            'TON ADDRESSE MAIL',
+            [staff.email],
+            fail_silently=False)
+    staff.delete()
+    return redirect("staff")
+    
 # staff's view
 class StaffView(LoginRequiredMixin,TemplateView):
     template_name = 'staff.html'
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
-        context["staffs"]=Staff.objects.all()
+        context["staffs"]=EmailUser.objects.all()
         return context
+    
     
 # login page
 class LoginView(FormView):
@@ -49,27 +88,28 @@ class StaffProfilView(LoginRequiredMixin,TemplateView):
     def get_context_data(self, **kwargs):
         id=kwargs["id"]
         context=super().get_context_data(**kwargs)
-        staff=Staff.objects.get(id=id)
+        staff=EmailUser.objects.get(id=id)
         context["staff"]=staff
         
         return context
     
 
-class InvitationView(TemplateView):
+# la vue pour les invitation
+class InvitationView(LoginRequiredMixin,TemplateView):
     template_name = 'invitation.html'
     def get_context_data(self,**kwargs):
         id=kwargs["id"]
         invitation=StaffInvitation.objects.get(id=id)
-        randompassword="ccccc"
+        randompassword=get_random_string(8)
         username=invitation.email
+        name="utilisateur"+str(invitation.id)
+        
         newuser:EmailUser
         if invitation.active:
         
-            newuser=EmailUser(username=username,email=invitation.email)
+            newuser=EmailUser(username=username,email=invitation.email,role=invitation.role,name=name)
             newuser.set_password(randompassword)
-            newuser.save()
-            Staff.objects.create(name=username,role=invitation.role,user=newuser)
-            
+            newuser.save()     
             invitation.active=False
             invitation.save()
             
@@ -79,12 +119,16 @@ class InvitationView(TemplateView):
         context={
             "password":randompassword,
             "username":username,
-            "email":invitation.email
+            "email":invitation.email,
+            "request":self.request
         }
         
         
         return context
 
+
+
+# a view for add staff
     
 class AddView(LoginRequiredMixin,FormView):
     template_name = 'add_staff.html'
@@ -92,10 +136,7 @@ class AddView(LoginRequiredMixin,FormView):
     success_url="/staff"
 
     def form_valid(self, form):
-        inv = form.save()
-      
- ################################################# voici le CODE ###############################################     
-      
+        inv = form.save()      
         mail_send = inv.email
         id_send = inv.id
                 

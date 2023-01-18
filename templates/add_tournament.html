@@ -2,49 +2,11 @@
 {% load static %}
 
 {% block title %} isjtournamnt | add tournament{% endblock %}
-
+{% block style %}
+<link rel="stylesheet" href="{%static 'style/simpleform.css'%}">
+{% endblock  %}
 {% block content %}
-<style>
-.form-wrapper {
-    height: 100%;
-    display: flex;
-    justify-content: center;    
-    align-items: center;
-}
-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: xx-large;
-    background-color: white;
-    padding: 25px;
-    border-radius:5px;
-}
-button {
-    border: none;
-    font-size:1.5rem;
-    color: white;
-    background-color: rgb(26, 105, 224);
-    height:40px;
-    box-shadow: 5PX 7px 5px 5px rgb(228, 228, 228);
-    border-radius:2px;
-    margin-top:15px;
-}
-select, input{
-    font-size:1.3rem;
-    height:30px;
-    border: inset;
-}
-label {
-    padding-top: 15px;
-    padding-bottom: 5px;
-    font-size:1.5rem;
-}
-textarea{
-    font-size: 1.3rem;
-    border: inset;
-}
-</style>
+
 
 <div class="form-wrapper">
     <form method="post">

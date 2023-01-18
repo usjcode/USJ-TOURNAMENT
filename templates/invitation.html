@@ -4,10 +4,15 @@
 {% block title %} isjtournamnt | staff {% endblock %}
 
 {% block content %}
+<style>
 
-<div></div>
+</style>
 
-{{username}}
-{{email}}
-{{password}}
+<div class="d-flex user-select row">
+   <span> nom d'utilisateur :{{username}}</span>
+   <span> email: {{email}}</span>
+    <span>mot de passe :{{password}}</span>
+</div>
+
+
 {%endblock%}

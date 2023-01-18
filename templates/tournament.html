@@ -14,21 +14,46 @@
 <div>
   
 {% if tournament.type in ct%}
-<div style="color: white;position:relative;width:220px ; margin:0 auto ;padding:15px ; box-sizing:unset; background-color: rgb(23, 69, 155);">
+<div style="color: white;position:relative;  ;padding:15px ; box-sizing:unset; background-color: rgb(23, 69, 155);">
 <h1 style="text-align: center;">
  Concours informatique
   </h1>
   {%else%}
-  <div style="color: white;position:relative;width:220px ; margin:0 auto ;padding:15px ; box-sizing:unset; background-color: rgb(180, 20, 15);">
+  <div style="color: white;position:relative; ;padding:15px ; box-sizing:unset; background-color: rgb(180, 20, 15);">
     <h1 style="text-align: center;">
      Concours management
       </h1>
   {%endif%}
- 
+<span class="fs-3 {%if c == 0%}text-info{%elif c == 1%}text-success {%else%}text-danger {%endif%}">
+  {%if c == 0%}A venir {%elif c == 1%} En Cours {%else%} Terminé{%endif%}</span>
 </div>
 
+
   <div>
-    
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+          <th>Annonymat</th>
+          <th>note enregisté</th>
+          <th>option</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in candidats%}
+        <tr>
+          <td>{{c.anonymat_number}}</td>
+          <td>
+            {% with notee_count=c.notee_set.count%}
+            {{notee_count}}
+            {% endwith %}
+          </td>
+          <td>
+            <i class="fa-solid fa-file-pen"></i>
+          </td>
+        </tr>
+        {%endfor%}
+      </tbody>
+    </table>
   </div>
 
 </div>

@@ -6,6 +6,7 @@ from django.views import View
 from django.views.generic.edit import FormView,UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.functions import Now
+import datetime
 
 from .forms import AddTournamentForm,UpdateTournamentForm
 
@@ -20,7 +21,7 @@ class HomeView(LoginRequiredMixin,TemplateView):
     template_name = 'home.html'
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
-        context["tournaments"]=Tournament.objects.all()
+        context["tournaments"]=Tournament.objects.all().reverse()
         return context
 
 
@@ -28,9 +29,13 @@ class TournamentView(LoginRequiredMixin,TemplateView):
     template_name = 'tournament.html'
     def get_context_data(self, **kwargs):
         id=kwargs.get('id')
-        
         context=super().get_context_data(**kwargs)
-        context['tournament']=Tournament.objects.get(id=id)
+        tournament=Tournament.objects.get(id=id)
+        context['tournament']=tournament
+        context['candidats']=Candidacy.objects.filter(tournament=context['tournament'])
+        context['c'] =0
+        if datetime.date.today() >=tournament.date_debut:
+            context['c'] =1
         return context
     
 
@@ -49,10 +54,10 @@ class AddView(LoginRequiredMixin,FormView):
 
 
 class Updateview(UpdateView):
-    template_name = 'add_candidate.html'
+    template_name = 'add_tournament.html'
     model = Tournament
     form_class = UpdateTournamentForm
-    success_url='/tournament'
+    success_url='/'
 
 
 def deleteview(request,id):

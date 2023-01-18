@@ -24,7 +24,7 @@
     <a class="{% if request.path == '/' %}active{% endif %} " href="{% url 'home' %}">Acceuil</a>
     <a class="{% if request.path == '/staff/'%}active{% endif %} " href="{% url 'staff' %}">personnel</a>
     <a class="{% if request.path == '/candidate/'%}active{% endif %} " href="{% url 'candidate' %}">candidats</a>
-    <a class="{% if request.path == '' %}active{% endif %} " href="{% url 'profil' request.user.staff.id %}">Mon profil</a>
+    <a class="{% if request.path == '' %}active{% endif %} " href="{% url 'profil' request.user.id %}">Mon profil</a>
     <a class="{% if request.path == '' %}active{% endif %} " href="{% url 'logout' %}">se deconnecter</a>
 </div>
         </div>

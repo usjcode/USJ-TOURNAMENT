@@ -26,17 +26,22 @@
               </div> 
                 <a  href="{% url 'tournament' t.pk %}"  class="content">
                           <h2 class="text-center">
-                    {% if t.type == "cl1i" %}Concours  informatique licence 1
-                    {% elif t.type == "cl1m" %}Concours  management licence 1
-                    {% elif t.type == "cm1i"%}Concours  informatique master
-                    {% elif t.type == "cing1i" %} concours ingenieur inormatique niveau 1
+                    {% if t.type == "cl1i" %}Concours  informatique licence I
+                    {% elif t.type == "cl1m" %}Concours  management licence I
+                    {% elif t.type == "cm1i"%}Concours  informatique master  I
+                    {% elif t.type == "cing1i" %} concours ingenieur informatique niveau I
+                    {% elif t.type == "cing3i" %}concours ingenieur informatique niveau III
+                    {% else %}
+                    concours management master I
                     {%endif%}
 
                     
                 </h2>
-                <div class="text-right pt-2 text-muted">
+                <div class="text-right pt-2 text-muted description">
                     {{t.description}}
                 </div>
+
+                <div> date limite d'inscription : {{t.date_inscription}}</div>
 
 
 
@@ -44,7 +49,7 @@
           
         <div class="brand {% if t.type in ct %}brand-inf{%endif%}">
 
-
+            {{t.date_debut}}
     
     </div>
         
@@ -53,7 +58,7 @@
         
         </div>
 
-        {%if request.user.staff.role  in rc%}
+        {%if request.user.role  in rc or request.user.role == 'D' %}
         <a class="add" href="{% url 'add_tournament'%}">
             +
         </a>    

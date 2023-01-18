@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} isjtournamnt | add tournament{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{%static 'style/simpleform.css'%}">
+{% endblock  %}
+
+{% block content %}
+
+<div class="form-wrapper">
+    <form method="post">
+
+{% csrf_token %}
+{{form}}
+<button type="submit"> modifier</button>
+    </form>
+<div>

@@ -7,8 +7,6 @@ from django.contrib.auth import get_user_model
 
 class EmailUser(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
-
-class Staff(models.Model):
     ROLE_CHOICE=[("S","sécretaire"),
                  ("D","directeur"),
                  ("RCL1I","responsable de concours licence informatique"),
@@ -17,9 +15,12 @@ class Staff(models.Model):
                  ]
     avatar=models.ImageField(default="default.jpeg")
     name = models.CharField(max_length=100, blank=True, null=True)
-    role=models.CharField(max_length=50,choices=ROLE_CHOICE)
+    role=models.CharField(max_length=50,choices=ROLE_CHOICE,default='S')
     bio=models.TextField(default="do you know ngdream likes banana ???")
-    user=models.OneToOneField(EmailUser,  on_delete=models.CASCADE,null=True)
+    contact=models.CharField(default="+237 698 55 55 11", max_length=50)
+    
+
+
     
     
 class StaffInvitation(models.Model):

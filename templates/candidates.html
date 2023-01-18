@@ -3,9 +3,9 @@
 {% block title %} isjtournament | candidate {% endblock %}
 
 {% block content %}
-<form class="d-flex w-50 m-auto mt-2">
-    <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-primary" type="submit">Search</button>
+<form class="d-flex w-50 m-auto mt-2" method="get ">
+    <input class="form-control me-1" type="search" value="{{searched}}" name="search" placeholder="Search" aria-label="Search">
+    <button class="btn mt-2 btn-primary" type="submit">Search</button>
 </form>
 
 <style>
@@ -24,16 +24,7 @@
       padding: 25px;
       border-radius:5px;
   }
-  button {
-      border: none;
-      font-size:1.5rem;
-      color: white;
-      background-color: rgb(26, 105, 224);
-      height:40px;
-      box-shadow: 5PX 7px 5px 5px rgb(228, 228, 228);
-      border-radius:2px;
-      margin-top:15px;
-  }
+
   select, input{
       font-size:1.3rem;
       height:30px;
@@ -76,7 +67,7 @@
             </div>
             <span class="text-muted">{{c.cni_number}}</span>
 
-            {%if request.user.staff.role ==  'S'%}
+            {%if request.user.role ==  'S' or request.user.role ==  'D'%}
             <div class="dropdown">
               <a  type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa-solid fa-gear"></i>
@@ -125,7 +116,7 @@
     
 </div>
 
-{%if request.user.staff.role ==  'S'%}
+{%if request.user.role ==  'S' or request.user.role ==  'D'%}
 <button class="add" href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   +
 </button> 

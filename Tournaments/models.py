@@ -4,6 +4,8 @@ from django.core.exceptions import ValidationError
 # Create your models here.
 from django import forms
 from django.db.models.functions import Now
+import datetime
+
 class Tournament(models.Model):
     YEAR_IN_SCHOOL_CHOICES = [
         ('cl1i', 'Concours licence I informatique'),
@@ -16,20 +18,28 @@ class Tournament(models.Model):
 
     type = models.CharField(max_length=7,choices=YEAR_IN_SCHOOL_CHOICES,default="S0", )    
     description=models.TextField(null=True,blank=True)
-    date_annonce=models.DateTimeField(auto_now_add=True)
+    date_annonce=models.DateField(auto_now_add=True)
     #date limite d'inscription
-    date_inscription=models.DateTimeField(null=True,verbose_name="date limite d'inscription")
+    date_inscription=models.DateField(null=True,verbose_name="date limite d'inscription")
+    
+    date_debut=models.DateField(null=True,verbose_name="date de d'ébut")
     # nombre de place pour le concour
-    nbr_place=models.IntegerField(default=50)  
+    nbr_place=models.IntegerField(default=50,verbose_name="nombre maximum de place")  
     
     def __str__(self):
-        return self.date_annonce + self.type
+        return  self.type + str(self.date_annonce)
         
     def clean(self):
-        if  Tournament.objects.filter(date_inscription__gt=Now(),type=self.type).exists():
-            raise ValidationError({'type': _('il existe encore un concours de meme type déja en cours  modifié les données de l\'ancien')})
-        elif  self.nbr_place > 200:
-            raise ValidationError({'nbr_place': _('le nombre de place ne doit pas etre supérieur a 200')})
+        if self.pk ==None:
+            if  Tournament.objects.filter(date_inscription__gt=Now(),type=self.type).exists():
+                raise ValidationError({'type': _('il existe encore un concours de meme type déja en cours  modifié les données de l\'ancien')})
+            elif  self.nbr_place > 200:
+                raise ValidationError({'nbr_place': _('le nombre de place ne doit pas etre supérieur a 200')})
+            elif datetime.date.today() >=self.date_inscription:
+                raise ValidationError({'date_inscription': _("vous ne pouvez pas definir une date d'inscription qui est déja passé")})
+
+                
+            
 
   
     def save(self, *args, **kwargs):

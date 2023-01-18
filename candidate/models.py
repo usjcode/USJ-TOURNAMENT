@@ -7,7 +7,7 @@ from Tournaments.models import Tournament
 class Candidacy(models.Model):
     SEX=[
         ("M","masculin"),
-        ("F","masculin")
+        ("F","feminin")
         
         ]
     
@@ -25,7 +25,7 @@ class Candidacy(models.Model):
     
     
     tournament=models.ForeignKey(Tournament, on_delete=models.CASCADE,null=True)
-    anonymat_number=models.IntegerField(null=True)
+    anonymat_number=models.CharField(null=True,max_length=6)
     name = models.CharField(max_length=100,null=True,verbose_name="nom")
     lastname= models.CharField(max_length=100,null=True,verbose_name="prenom")
     photo= models.ImageField(null=True,blank=True)
@@ -51,7 +51,7 @@ class Candidacy(models.Model):
     region=models.CharField(max_length=100,null=True)
     adresse=models.CharField(max_length=100,null=True)
     cni_number = models.PositiveBigIntegerField(null=True,verbose_name="numéro de cni")
-
+    
     nompere=models.CharField(max_length=100,null=True,verbose_name="nom de la mere")
     nommere=models.CharField(max_length=100,null=True,verbose_name="nom du pere")
     professionmere=models.CharField(max_length=100,null=True,verbose_name="profession de la mere")
@@ -64,16 +64,34 @@ class Candidacy(models.Model):
     photo_recto_cni=models.ImageField(upload_to="cni",null=True,blank=True)
     photo_verso_cni=models.ImageField(upload_to="cni",null=True,blank=True)
     
+    def save(self, *args, **kwargs):
+        tournament_candidacy=Candidacy.objects.filter(tournament=self.tournament)
+        if(tournament_candidacy.count()>0):
+            last=tournament_candidacy.last()
+            number=last.anonymat_number[1:]
+            value=int(number)+1
+            self.anonymat_number='A'+str(value).zfill(5)
+            
+        else:
+            self.anonymat_number="A00000"
+        
+        super().save(*args, **kwargs)
+    
     def __str__(self):
-        return  self.name+' ' + self.lastname + ' :' + self.cni_number
+        return  self.name+' ' + self.lastname + ' :' + str(self.cni_number)
     
         
 class Notee(models.Model):
     matiere=models.CharField(max_length=100,null=True)
-    valeur=models.IntegerField()
+    valeur=models.IntegerField(default=10)
+    candidat=models.ForeignKey(Candidacy, on_delete=models.CASCADE,null=True)
 
+    
 class Noteo(models.Model):
-    pass
+    candidat=models.ForeignKey(Candidacy, on_delete=models.CASCADE,null=True)
+    valeur=models.IntegerField(default=15)
+    appreciation=models.TextField(default="a de la motivation")
+
     
 
     

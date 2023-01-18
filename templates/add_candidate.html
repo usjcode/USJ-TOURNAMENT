@@ -298,7 +298,18 @@ transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 <div>
 {%else%}
 <div>
-    <h2>il n'ya aucun concours pours lincence 1 actuellement</h2>
+    <h2>il n'ya aucun 
+      {% if type == "cl1i" %}Concours  informatique licence I
+      {% elif type == "cl1m" %}Concours  management licence I
+      {% elif type == "cm1i"%}Concours  informatique master  I
+      {% elif type == "cing1i" %} concours ingenieur informatique niveau I
+      {% elif type == "cing3i" %}concours ingenieur informatique niveau III
+      {% else %}
+      concours management master I
+      {%endif%}
+      
+      
+      actuellement</h2>
 </div>
 
 {%endif%}

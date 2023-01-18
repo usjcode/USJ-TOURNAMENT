@@ -49,6 +49,7 @@
     color: white;
     font-weight: 300;
     opacity: 60%;
+    font-size: 1.3rem;
 }
 
 .card:hover {

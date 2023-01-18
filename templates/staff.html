@@ -10,8 +10,8 @@
 <div class="cards">
     {%for staff in staffs %}
     <a href="{% url 'profil' staff.pk %}" class="card">
-        <img src="" alt="" >
-        <div>
+        <img src="{{staff.avatar.url}}" alt="" >
+        <div >
             <h3>{{staff.name}}</h3>
             <h4>{{staff.bio}}</h4>
         </div>
@@ -22,7 +22,7 @@
 
 </div>
 
-{%if request.user.staff.role ==  'D'%}
+{%if request.user.role ==  'D'%}
 
 <a class="add" href="{% url 'add_staff'%}">
     +
