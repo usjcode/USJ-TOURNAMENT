@@ -7,15 +7,13 @@
 {% endblock  %}
 
 {% block content %}
-<style>
-    
-</style>
-<div class="c-form">
+
+<div class="form-wrapper">
 <form method="post">
     {% csrf_token %}
     {{form}}
     <br>
-    <button type="submit">send invitation</button>
+    <button type="submit">envoyer une invitation</button>
 </form>
 </div>
 

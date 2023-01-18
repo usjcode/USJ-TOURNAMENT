@@ -32,7 +32,7 @@ class StaffInvitation(models.Model):
                 ]
     email= models.EmailField(null=True)
     send_date= models.DateField("", auto_now_add=True)
-    role=models.CharField(max_length=100, null=True,choices=ROLE_CHOICE)
+    role=models.CharField(max_length=100,default="S",choices=ROLE_CHOICE)
     note=models.TextField(null=True)
     active=models.BooleanField(default=True)
     
