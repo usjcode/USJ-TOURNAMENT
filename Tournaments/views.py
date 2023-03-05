@@ -10,6 +10,43 @@ import datetime
 
 from .forms import AddTournamentForm,UpdateTournamentForm
 
+from rest_framework.response import Response
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework import generics
+from .serializer import TournamentSerializer
+
+
+
+
+########### create tournament
+
+class CreateTournamentView(generics.CreateAPIView):
+    queryset = Tournament.objects.all()
+    serializer_class = TournamentSerializer
+    def perform_create(self, serializer):
+        description = serializer.validated_data.get('description')
+        date_inscription = serializer.validated_data.get('date_inscription')
+        date_debut = serializer.validated_data.get('date_debut')
+        nbr_place = serializer.validated_data.get('nbr_place')
+        type = serializer.validated_data.get('type') or None
+        if type is None:
+            type = 'cl1i'
+        serializer.save(type = type)
+
+########### end
+
+class DetailTournamentView(generics.RetrieveAPIView):
+    queryset = Tournament.objects.all()
+    serializer_class = TournamentSerializer
+    
+############
+
+
+
+
+
+
 
 
 class AboutView(TemplateView):
@@ -38,7 +75,6 @@ class TournamentView(LoginRequiredMixin,TemplateView):
             context['c'] =1
         return context
     
-
 
 
 class AddView(LoginRequiredMixin,FormView):

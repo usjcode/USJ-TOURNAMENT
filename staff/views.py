@@ -14,6 +14,33 @@ from django.contrib.auth import update_session_auth_hash
 import random
 import string
 
+
+##################
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from django.http import JsonResponse
+from .serializer import StaffSerializer
+from rest_framework import generics
+
+
+################## create
+class CreateStaffView(generics.CreateAPIView):
+    queryset = StaffInvitation.objects.all()
+    serializer_class = StaffSerializer
+    def perform_create(self, serializer):
+        email = serializer.validated_data.get('email')
+        role = serializer.validated_data.get('role') or None
+        if role is None:
+            role = 'D'
+        serializer.save(role = role)
+
+################## end
+class DetailStaffView(generics.RetrieveAPIView):
+    queryset = StaffInvitation.objects.all()
+    serializer_class = StaffSerializer
+
+#################
+
 def get_random_string(length):
     # choose from all lowercase letter
     letters = string.ascii_lowercase

@@ -9,7 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('Tournaments.urls')),
     path('staff/',include('staff.urls')),
-    path('candidate/',include('candidate.urls')),
+    path('candidate/',include('candidate.urls'))
     
 ]
 

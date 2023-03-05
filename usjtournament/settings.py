@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'Tournaments',
     'staff',
     'candidate',
+    'rest_framework',
+    'api',
     
     
 ]
