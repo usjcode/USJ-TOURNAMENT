@@ -55,13 +55,8 @@ INSTALLED_APPS = [
     'staff',
     'candidate',
     'rest_framework',
-<<<<<<< Updated upstream
-    'api',
-    
-=======
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
->>>>>>> Stashed changes
     
 ]
 
