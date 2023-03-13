@@ -7,10 +7,9 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('Tournaments.urls')),
+    path('tournaments/',include('Tournaments.urls')),
     path('staff/',include('staff.urls')),
-    path('candidate/',include('candidate.urls'))
-    
+    path('candidates/',include('candidate.urls'))
 ]
 
 # server config

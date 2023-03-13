@@ -27,8 +27,6 @@ SECRET_KEY = 'django-insecure-6f&=wb93k3#+i(gn9axrb(-ib0e-pf229^t=4%a6!kj4dzp+ah
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-####################################### VOICI EGALEMENT LES SIX LIGNES AJOUTEES #########################################################
-
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'ngdream1953@gmail.com'
 EMAIL_HOST_PASSWORD = 'amapomtkstmcftlx'
@@ -73,7 +71,7 @@ REST_FRAMEWORK = {
 
 
 
-AUTH_USER_MODEL = 'staff.EmailUser' 
+AUTH_USER_MODEL = 'staff.StaffUser' 
 AUTHENTICATION_BACKENDS = ['staff.staffbackends.EmailBackend'] 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

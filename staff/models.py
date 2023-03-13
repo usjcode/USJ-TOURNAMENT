@@ -5,7 +5,8 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 
 
-class EmailUser(AbstractUser):
+# class pour lutilisateur
+class StaffUser(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     ROLE_CHOICE=[("S","sécretaire"),
                  ("D","directeur"),
@@ -23,6 +24,7 @@ class EmailUser(AbstractUser):
 
     
     
+#modele pour les invitations
 class StaffInvitation(models.Model):
     ROLE_CHOICE=[("S","sécretaire"),
                 ("D","directeur"),

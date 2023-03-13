@@ -6,61 +6,16 @@ from django.views import View
 from django.views.generic.edit import FormView,UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.functions import Now
+from rest_framework.parsers import JSONParser
 import datetime
-
 from .forms import AddTournamentForm,UpdateTournamentForm
+from rest_framework import status
 
 from rest_framework.response import Response
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework import generics
 from .serializer import TournamentSerializer
-
-
-
-
-########### create tournament
-
-class CreateTournamentView(generics.CreateAPIView):
-    queryset = Tournament.objects.all()
-    serializer_class = TournamentSerializer
-    def perform_create(self, serializer):
-        description = serializer.validated_data.get('description')
-        date_inscription = serializer.validated_data.get('date_inscription')
-        date_debut = serializer.validated_data.get('date_debut')
-        nbr_place = serializer.validated_data.get('nbr_place')
-        type = serializer.validated_data.get('type') or None
-        if type is None:
-            type = 'cl1i'
-        serializer.save(type = type)
-
-########### end
-
-class DetailTournamentView(generics.RetrieveAPIView):
-    queryset = Tournament.objects.all()
-    serializer_class = TournamentSerializer
-    
-############
-
-
-
-
-
-
-
-
-class AboutView(TemplateView):
-    template_name = "about.html"
-    
-    
-
-class HomeView(LoginRequiredMixin,TemplateView):
-    template_name = 'home.html'
-    def get_context_data(self, **kwargs):
-        context=super().get_context_data(**kwargs)
-        context["tournaments"]=Tournament.objects.all().reverse()
-        return context
-
 
 class TournamentView(LoginRequiredMixin,TemplateView):
     template_name = 'tournament.html'
@@ -77,18 +32,6 @@ class TournamentView(LoginRequiredMixin,TemplateView):
     
 
 
-class AddView(LoginRequiredMixin,FormView):
-    success_url="/"
-    template_name = 'add_tournament.html'
-    form_class = AddTournamentForm
-
-    def form_valid(self, form):
-        
-        form.save()
-        return super().form_valid(form)
-    
-
-
 class Updateview(UpdateView):
     template_name = 'add_tournament.html'
     model = Tournament
@@ -96,9 +39,45 @@ class Updateview(UpdateView):
     success_url='/'
 
 
-def deleteview(request,id):
+@api_view(['POST','GET','DELETE'])
+def tournaments(request):
+
+    if request.method == 'POST':
+        data= JSONParser().parse(request)
+        serializer = TournamentSerializer(data=data)
+        if serializer.is_valid():
+            x=serializer.save()
+            print(x)
+            return Response(serializer.validated_data, status=status.HTTP_201_CREATED) 
+        else:
+            return Response(serializer.errors,status=status.HTTP_200_OK)
+        
+    elif request.method == 'GET':
+        tournaments= Tournament.objects.all()
+        serializer = TournamentSerializer(tournaments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == 'DELETE':
+        tournaments = Tournament.objects.all()
+        tournaments.delete()
+        return JsonResponse({}, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['PATCH','GET','DELETE'])
+def tournament(request,id):
     tournament=Tournament.objects.get(id=id)
-    candidates=Candidacy.objects.filter(tournament=tournament)
-    candidates.delete()
-    tournament.delete()
-    return redirect("home")
+    if request.method=="GET":
+        serializer=TournamentSerializer(tournament)
+        return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+    if request.method=="DELETE":
+        tournament.delete()
+        return JsonResponse({}, status=status.HTTP_201_CREATED)
+    
+
+@api_view(['PATCH','GET','DELETE'])
+def tournamentcandidates(request,id):
+    tournament=Tournament.objects.get(id=id)
+    if request.method=="GET":
+        serializer=TournamentSerializer(tournament)
+        return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+    if request.method=="DELETE":
+        tournament.delete()
+        return JsonResponse({}, status=status.HTTP_201_CREATED)

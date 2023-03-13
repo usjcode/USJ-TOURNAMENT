@@ -6,6 +6,7 @@ from django.db.models import Q
 UserModel = get_user_model()
 
 
+# backend d'authentification pour  la connexion avec email
 class EmailBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
         try:

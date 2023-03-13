@@ -10,11 +10,6 @@ import datetime
 # Create your views here.
 
 
-class AboutView(TemplateView):
-    template_name = "about.html"
-    
-    
-
 class HomeView(LoginRequiredMixin,View):
     template_name = 'candidates.html'
     def get(self, request, *args, **kwargs):
@@ -79,8 +74,8 @@ class Updateview(UpdateView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
-    
-    
+
+
 class Updatetournamentview(LoginRequiredMixin,View):
         def get(self, request, *args, **kwargs):
             id=kwargs["pk"]
