@@ -6,7 +6,24 @@ from django.views.generic.edit import FormView,UpdateView
 from .forms import AddCandidateForm
 from django.db.models.functions import Now
 from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework.decorators import api_view
 import datetime
+from .serializer import CandidateSerializer
+from rest_framework.response import Response
+from django.http import JsonResponse
+
+import random
+import string
+
+from django.http import JsonResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View
+from django.contrib.auth import update_session_auth_hash
+from rest_framework import status
+
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework import generics
+
 # Create your views here.
 
 
@@ -22,10 +39,25 @@ class HomeView(LoginRequiredMixin,View):
         context["candidats"]=candidats
         return  render(request,self.template_name,context=context)
     
+# def deleteview(request,id):
+#     candidate=Candidacy.objects.get(id=id)
+#     candidate.delete()
+#     return redirect("candidate")
+
+
+##################### delete candidate
+
+@api_view(['DELETE','GET'])
 def deleteview(request,id):
     candidate=Candidacy.objects.get(id=id)
-    candidate.delete()
-    return redirect("candidate")
+    # if request.method=="GET":
+    #     serializer=CandidateSerializer(candidate)
+        # return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+    if request.method=="DELETE":
+        candidate.delete()
+        return JsonResponse({}, status=status.HTTP_201_CREATED)
+    
+#######################
 
 
 
