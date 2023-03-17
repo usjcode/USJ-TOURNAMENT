@@ -10,6 +10,8 @@ from .models import StaffInvitation,StaffUser
 from django.core.mail import send_mail
 from django.contrib.auth import update_session_auth_hash
 from rest_framework import status
+from rest_framework.parsers import JSONParser
+
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -34,6 +36,7 @@ def staffmember(request,id):
     staffmember=StaffUser.objects.get(id=id)
     if request.method=="GET":
         serializer=StaffSerializer(staffmember)
+
         return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
     if request.method=="DELETE":
         staffmember.delete()
@@ -45,11 +48,13 @@ def staffmember(request,id):
 def invitations(request):
 
     if request.method == 'POST':
-        staff_serializer = StaffInvitationSerializer(data=request)
+        data= JSONParser().parse(request)
+        staff_serializer = StaffInvitationSerializer(data=data)
         if staff_serializer.is_valid():
             staff_serializer.save()
             mail = staff_serializer.data.get('email')
             id= staff_serializer.data.get('id')
+
                     
             send_mail("INVITATION POUR L'UTILISATION DU LOGICIEL DE GESTION DE CONCOURS DE USJ",
                 'Veuiller cliquez ici pour active votre compte utilisateur 127.0.0.1:8000/staff/invitation/{}'.format(id),
@@ -57,7 +62,9 @@ def invitations(request):
                 [mail],
                 fail_silently=False
             )
-            return Response(staff_serializer.data, status=status.HTTP_201_CREATED) 
+            return Response(data, status=status.HTTP_201_CREATED) 
+        else:
+            return Response(staff_serializer.errors,status=status.HTTP_201_CREATED)
         
     elif request.method == 'GET':
         invitations = StaffInvitation.objects.all()
@@ -66,7 +73,7 @@ def invitations(request):
     elif request.method == 'DELETE':
         invitations = StaffInvitation.objects.all()
         invitations.delete()
-        return JsonResponse(staff_serializer.data, status=status.HTTP_204_NO_CONTENT)
+        return JsonResponse({}, status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['PATCH','GET','DELETE'])
 def invitation(request,id):
@@ -95,7 +102,7 @@ def invitationvalidation(request,id):
         newuser.save()     
         invitation.active=False
         invitation.save()
-    return "yo"
+    return Response({username,randompassword},status=status.HTTP_200_OK)
 
     
 @api_view(['GET','DELETE','POST'])

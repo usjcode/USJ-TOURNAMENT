@@ -54,10 +54,10 @@ class RegisterSerializer(serializers.ModelSerializer):
 class StaffInvitationSerializer(serializers.ModelSerializer):
     class Meta:
         model = StaffInvitation
-        fields = ('email', 'role')
+        fields = ('email', 'role','id')
 
 
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = StaffUser
-        fields = ('username','email', 'role','id')
+        fields = ('username','email', 'role','id','avatar',"contact","bio")

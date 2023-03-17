@@ -14,6 +14,8 @@ urlpatterns = [
 
     path('api', views.getRoutes),
     path("invitations/<id>",views.invitation,name='invitation'),
+    path("invitations/<id>/validation",views.invitationvalidation,name='invitation'),
+
     path("invitations",views.invitations,name="invitations"),
 
     path('<id>',views.staffmember,name="profil"),
