@@ -8,6 +8,9 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
     
-    path("deleteStudent/<id>",views.deleteview,name="deleteStudent"),
+    path("<id>",views.candidate,name="candidate"),
+    path("",views.candidates,name="candidates"),
+
+
     
 ]

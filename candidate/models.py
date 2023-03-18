@@ -1,5 +1,5 @@
 from django.db import models
-from Tournaments.models import Tournament
+from Tournaments.models import Tournament, TournamentSubject
 
 # Create your models here.
 
@@ -81,18 +81,21 @@ class Candidacy(models.Model):
         return  self.name+' ' + self.lastname + ' :' + str(self.cni_number)
     
         
-class Notee(models.Model):
-    matiere=models.CharField(max_length=100,null=True)
-    valeur=models.IntegerField(default=10)
-    candidat=models.ForeignKey(Candidacy, on_delete=models.CASCADE,null=True)
+class OralNote(models.Model):
+    candidate=models.ForeignKey(Candidacy,on_delete=models.CASCADE,null=True)
+    note=models.IntegerField(default=10)
+    observation=models.TextField(null=True,blank=True)
+
+
+
+
+class WritingNote(models.Model):
+    matiere=models.ForeignKey(TournamentSubject,on_delete=models.deletion.PROTECT,null=True)
+    candidate=models.ForeignKey(Candidacy,on_delete=models.CASCADE)
+    note=models.IntegerField(default=10)
 
     
-class Noteo(models.Model):
-    candidat=models.ForeignKey(Candidacy, on_delete=models.CASCADE,null=True)
-    valeur=models.IntegerField(default=15)
-    appreciation=models.TextField(default="a de la motivation")
 
-    
 
     
     

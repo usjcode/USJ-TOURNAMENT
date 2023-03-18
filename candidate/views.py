@@ -1,70 +1,86 @@
 from django.shortcuts import render,redirect
-from .models import Tournament,Candidacy
-from django.views.generic import TemplateView
+from .models import OralNote, Tournament,Candidacy, WritingNote
 from django.views import View
 from django.views.generic.edit import FormView,UpdateView
-from .forms import AddCandidateForm
 from django.db.models.functions import Now
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.decorators import api_view
 import datetime
-from .serializer import CandidateSerializer
+from .serializer import CandidateSerializer, OralNoteSerializer, WritingNoteSerializer
 from rest_framework.response import Response
-from django.http import JsonResponse
-
-import random
-import string
 
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from django.contrib.auth import update_session_auth_hash
-from rest_framework import status
-
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework import generics
-
-# Create your views here.
-
-
-class HomeView(LoginRequiredMixin,View):
-    template_name = 'candidates.html'
-    def get(self, request, *args, **kwargs):
-        candidats=Candidacy.objects.all()
-        context={}
-        if("search" in self.request.GET.keys()):
-            search=self.request.GET.get("search")
-            context["searched"]=search
-            candidats=Candidacy.objects.filter(cni_number=search)
-        context["candidats"]=candidats
-        return  render(request,self.template_name,context=context)
-    
-# def deleteview(request,id):
-#     candidate=Candidacy.objects.get(id=id)
-#     candidate.delete()
-#     return redirect("candidate")
-
-
-##################### delete candidate
+from rest_framework import status    
 
 @api_view(['DELETE','GET'])
-def deleteview(request,id):
+def candidate(request,id):
     candidate=Candidacy.objects.get(id=id)
-    # if request.method=="GET":
-    #     serializer=CandidateSerializer(candidate)
-        # return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+    if request.method=="GET":
+        serializer=CandidateSerializer(candidate)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK)
     if request.method=="DELETE":
         candidate.delete()
         return JsonResponse({}, status=status.HTTP_201_CREATED)
     
-#######################
+
+@api_view(['DELETE','GET','POST'])
+def candidates(request):
+    candidates=Candidacy.objects.all()
+    if request.method=="POST":
+        data= JSONParser().parse(request)
+        serializer = StaffInvitationSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data, status=status.HTTP_201_CREATED) 
+
+    if request.method=="GET":
+        serializer=CandidateSerializer(candidates,many=True,context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    if request.method=="DELETE":
+        candidate.delete()
+        return Response({}, status=status.HTTP_200_OK)
+    
+@api_view(['GET','POST'])
+def candidateoralnote(request,tournamentid,anonymat):
+    if request.method=="GET":
+        tournament=Tournament.objects.get(id=tournamentid)
+        candidate=Candidacy.objects.get(anonymat_number=anonymat,tournament=tournament)
+        note=OralNote.objects.get(candidate=candidate)
+        serializer=OralNoteSerializer(note,context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    if request.method=="POST":
+        data= JSONParser().parse(request)
+
+        serializer = WritingNoteSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data, status=status.HTTP_201_CREATED) 
 
 
+@api_view(['GET','POST'])
+def candidatewritingnotes(request,tournamentid,anonymat):
+    if request.method=="GET":
+        tournament=Tournament.objects.get(id=tournamentid)
+        candidate=Candidacy.objects.get(anonymat_number=anonymat,tournament=tournament)
+        
+        note=WritingNote.objects.filter(candidate=candidate)
+        serializer=WritingNoteSerializer(note,many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    if request.method=="POST":
+        data= JSONParser().parse(request)
+        serializer = OralNoteSerializer()(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data, status=status.HTTP_201_CREATED) 
+
+    
+    
+
+    
 
 class AddView(FormView):
-    template_name = 'add_candidate.html'
-    form_class = AddCandidateForm
-    success_url='/'
 
     def form_valid(self, form):
         candidat=form.save(commit=False)
@@ -87,11 +103,6 @@ class AddView(FormView):
 
 
 class Updateview(UpdateView):
-    template_name = 'update_candidate.html'
-    model = Candidacy
-    form_class = AddCandidateForm
-    success_url='/candidate'
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         id=self.kwargs['pk']

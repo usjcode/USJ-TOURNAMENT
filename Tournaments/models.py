@@ -4,19 +4,25 @@ from django.core.exceptions import ValidationError
 # Create your models here.
 from django import forms
 from django.db.models.functions import Now
+
 import datetime
 
-class Tournament(models.Model):
-    YEAR_IN_SCHOOL_CHOICES = [
-        ('cl1i', 'Concours licence I informatique'),
-        ('cl1m', 'Concours licence I Management'),
-        ('cing1i', 'Concours ingenieur I informatique'),
-        ('cing3i', 'Coucours ingenieur III informatique'),
-        ('cm1m', 'Concours Master I Management'),
-        ('cm1i', 'Concours Master I informatique '),
-    ]
 
-    type = models.CharField(max_length=7,choices=YEAR_IN_SCHOOL_CHOICES,default="S0", )    
+    
+class TournamentType(models.Model):
+    nom=models.CharField(primary_key=True,max_length=140)
+    color=models.CharField(default="#00f",max_length=140)
+    def __str__(self) -> str:
+        return self.nom
+    
+class TournamentSubject(models.Model):
+    name=models.CharField(primary_key=True,max_length=140)
+    tournaments=models.ManyToManyField(TournamentType)
+    def __str__(self) -> str:
+        return self.name
+class Tournament(models.Model):
+
+    type = models.ForeignKey(TournamentType,on_delete=models.CASCADE)    
     description=models.TextField(null=True,blank=True)
     date_annonce=models.DateField(auto_now_add=True)
     #date limite d'inscription
@@ -27,7 +33,7 @@ class Tournament(models.Model):
     nbr_place=models.IntegerField(default=50,verbose_name="nombre maximum de place")  
     
     def __str__(self):
-        return  self.type + str(self.date_annonce)
+        return  self.type.nom + str(self.date_annonce)
         
     def clean(self):
         if self.pk ==None:
@@ -44,28 +50,22 @@ class Tournament(models.Model):
   
     def save(self, *args, **kwargs):
         if  not self.description:
-            if self.type=='cl1i':
+            if self.type.nom=='cl1i':
                 self.description="""rejoignez nous et  obtenez une licence professionelle 
                 d'ans le develloppement d'application pour l'economie numerique"""
-            elif self.type=='cl1m':
+            elif self.type.nom=='cl1m':
                 self.description="""spécialiser vous en management"""
             elif self.type=='cing1i':
                 self.description="""suivez dès mintenant un formation d'ingenieur en nformatique chez nous !"""
-            elif self.type=='cing3i':
-                self.description=""" specialisez vous dans l'ingénieurie informatique"""
+            elif self.type.nom=='cing3i':
+                self.description.nom=""" specialisez vous dans l'ingénieurie informatique"""
             else :
                 self.description="""spécialiser vous en (data science ,securité, et systeme d'information)"""
 
         super().save(*args, **kwargs)
           
 
-class OralSession(models.Model):
-    date=models.DateField(null=True);
-    tournament=models.ForeignKey(Tournament, verbose_name=(""), on_delete=models.CASCADE)
 
-class WritingSession(models.Model):
-    date=models.DateField(null=True);
-    tournament=models.OneToOneField(Tournament, verbose_name=(""), on_delete=models.CASCADE)
     
 
 

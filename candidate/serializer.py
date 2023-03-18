@@ -1,4 +1,4 @@
-from .models import Candidacy
+from .models import Candidacy,WritingNote,OralNote
 from rest_framework import serializers
 
 from rest_framework import serializers
@@ -10,6 +10,19 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
         
         
 class CandidateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Candidacy
-        exclude=('tournament','anonymat_number')
+        class Meta:
+            model = Candidacy
+            exclude=('anonymat_number',)
+            depth = 1
+
+class WritingNoteSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = WritingNote
+            fields=["matiere","note"]
+            
+
+class OralNoteSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = OralNote
+            fields=["matiere","note","observation"]
+           

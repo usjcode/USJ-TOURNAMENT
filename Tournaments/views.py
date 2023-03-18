@@ -14,7 +14,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
-from .serializer import TournamentSerializer
+from .serializer import TournamentSerializer,TournamentCandidateSerializer
 
 class TournamentView(LoginRequiredMixin,TemplateView):
     template_name = 'tournament.html'
@@ -82,10 +82,10 @@ def tournament(request,id):
 
 @api_view(['PATCH','GET','DELETE'])
 def tournamentcandidates(request,id):
-    tournament=Tournament.objects.get(id=id)
+    candidates=Candidacy.objects.filter(tournament_id=id)
     if request.method=="GET":
-        serializer=TournamentSerializer(tournament)
-        return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+        serializer=TournamentCandidateSerializer(candidates,many=True)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
     if request.method=="DELETE":
         tournament.delete()
-        return JsonResponse({}, status=status.HTTP_201_CREATED)
+        return Response({}, status=status.HTTP_201_CREATED)

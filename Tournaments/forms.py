@@ -1,6 +1,6 @@
 from .models import Tournament
 from django import  forms
-from .models import Tournament,WritingSession,OralSession
+from .models import Tournament
 
 
 class AddTournamentForm(forms.ModelForm):
