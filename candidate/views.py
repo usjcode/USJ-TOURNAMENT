@@ -6,6 +6,8 @@ from django.db.models.functions import Now
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.decorators import api_view
 import datetime
+from rest_framework.parsers import JSONParser
+
 from .serializer import CandidateSerializer, OralNoteSerializer, WritingNoteSerializer
 from rest_framework.response import Response
 
@@ -30,16 +32,29 @@ def candidates(request):
     candidates=Candidacy.objects.all()
     if request.method=="POST":
         data= JSONParser().parse(request)
-        serializer = StaffInvitationSerializer(data=data)
+        print(data.get("type"))
+        try:
+            tournament=Tournament.objects.filter(date_inscription__gt=Now(),type=data.get("type")).first()
+            print('ok')
+        except Tournament.DoesNotExist:
+            tournament=None
+        
+        
+        
+        serializer = CandidateSerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(data, status=status.HTTP_201_CREATED) 
+            serializer.save(tournament=tournament)
+            return Response(data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+
 
     if request.method=="GET":
         serializer=CandidateSerializer(candidates,many=True,context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
     if request.method=="DELETE":
-        candidate.delete()
+        candidates.delete()
         return Response({}, status=status.HTTP_200_OK)
     
 @api_view(['GET','POST'])

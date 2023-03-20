@@ -35,14 +35,16 @@ class Tournament(models.Model):
     def __str__(self):
         return  self.type.nom + str(self.date_annonce)
         
-    def clean(self):
-        if self.pk ==None:
-            if  Tournament.objects.filter(date_inscription__gt=Now(),type=self.type).exists():
-                raise ValidationError({'type': _('il existe encore un concours de meme type déja en cours  modifié les données de l\'ancien')})
-            elif  self.nbr_place > 200:
-                raise ValidationError({'nbr_place': _('le nombre de place ne doit pas etre supérieur a 200')})
-            elif datetime.date.today() >=self.date_inscription:
-                raise ValidationError({'date_inscription': _("vous ne pouvez pas definir une date d'inscription qui est déja passé")})
+    # def clean(self):
+    #     if self.pk ==None:
+    #         if  Tournament.objects.filter(date_inscription__gt=Now(),type=self.type).exists():
+    #             raise ValidationError({'type': _('il existe encore un concours de meme type déja en cours  modifié les données de l\'ancien')})
+    #         elif  self.nbr_place > 200:
+    #             raise ValidationError({'nbr_place': _('le nombre de place ne doit pas etre supérieur a 200')})
+    #         elif datetime.date.today() >=self.date_inscription:
+    #             raise ValidationError({'date_inscription': _("vous ne pouvez pas definir une date d'inscription qui est déja passé")})
+    #         elif self.date_debut >=self.date_inscription:
+    #             raise ValidationError({'date_inscription': _("vous ne pouvez pas definir une date d'inscription qui est déja passé")})
 
                 
             

@@ -6,6 +6,14 @@ from django.contrib.auth import get_user_model
 
 
 # class pour lutilisateur
+
+class Notification(models.Model):
+    t=models.CharField(max_length=150)
+    body=models.TextField()
+    senddate=models.DateTimeField(auto_now_add=True)
+
+    
+
 class StaffUser(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     ROLE_CHOICE=[("S","sécretaire"),

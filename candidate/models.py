@@ -5,42 +5,23 @@ from Tournaments.models import Tournament, TournamentSubject
 
 
 class Candidacy(models.Model):
-    SEX=[
-        ("M","masculin"),
-        ("F","feminin")
-        
-        ]
-    
-    classes=[
-        ("autre","autre"),  
-        ("sizieme","sizieme"),
-        ("cinquieme","cinquieme"),
-        ("quatrieme","quatrieme"),
-        ("troizieme","troizieme"),
-        ("seconde","seconde"),
-        ("pemiere","premiere"),
-        ("terminale","terminale")
-        
-    ]
-    
-    
-    tournament=models.ForeignKey(Tournament, on_delete=models.CASCADE,null=True)
-    anonymat_number=models.CharField(null=True,max_length=6)
+    tournament=models.ForeignKey(Tournament, on_delete=models.CASCADE)
+    anonymat_number=models.CharField(null=True,max_length=6,blank=True)
     name = models.CharField(max_length=100,null=True,verbose_name="nom")
     lastname= models.CharField(max_length=100,null=True,verbose_name="prenom")
     photo= models.ImageField(null=True,blank=True)
-    sex=models.CharField(max_length=1,default='M',verbose_name="votre sex",choices=SEX)
+    sex=models.CharField(max_length=1,default='M',verbose_name="votre sex")
     birth_date= models.DateField(null=True,verbose_name="date de naissance")
     birth_place=models.CharField(max_length=100,null=True,verbose_name="lieu de naissance")
     bacc=models.BooleanField(default=True,verbose_name="avez vous le baccaléaurat??")
     obtentionyear=models.IntegerField(default=2022,verbose_name="année d'obtention",null=True)
     exschool=models.CharField(max_length=100,null=True,verbose_name="votre établissement")
     hasrepeated=models.BooleanField(default=False,verbose_name="avez vous déja redoublé ?")
-    repeatedclasse=models.CharField(null="terminale",blank=True,max_length=50,verbose_name="classe repété",choices=classes)
+    repeatedclasse=models.CharField(null="terminale",blank=True,max_length=50,verbose_name="classe repété")
     mention=models.CharField(default="passable",max_length=100)
     examcenter=models.CharField(default="yaoundé",verbose_name="centre d'examination",max_length=100)
     exschoolcity=models.CharField(max_length=100,null=True,verbose_name="ville de votre établissement")
-    series=models.CharField(default="E",max_length=10,verbose_name="votre série")
+    series=models.CharField(default="c",max_length=10,verbose_name="votre série")
     
     nationality=models.CharField(null=True,max_length=100,verbose_name="nationnalité")
     
