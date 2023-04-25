@@ -59,7 +59,9 @@ class Candidacy(models.Model):
         super().save(*args, **kwargs)
     
     def __str__(self):
-        return  self.name+' ' + self.lastname + ' :' + str(self.cni_number)
+        print(self.name)
+        print(self.lastname)
+        return  str(self.name)+' ' + str(self.lastname) + ' :' + str(self.cni_number)
     
         
 class OralNote(models.Model):
