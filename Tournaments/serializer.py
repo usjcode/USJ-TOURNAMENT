@@ -12,14 +12,14 @@ class TournamentSerializer(serializers.ModelSerializer):
         model=Tournament
         exclude=["date_annonce"]
     def validate(self, data):
-        print(data)
-        if  Tournament.objects.filter(date_inscription__gt=Now(),type=data.get("type")).exists():
-            raise ValidationError(detail='il existe encore un concours de meme type déja en cours  modifié les données de l\'ancien')
-        elif  (data.get("nbr_place") or 0) > 200:
+        if self.instance:
+            if Tournament.objects.filter(date_inscription__gt=Now(),type=data.get("type")).exists():
+                raise ValidationError(detail='il existe encore un concours de meme type déja en cours  modifié les données de l\'ancien')
+        if  (data.get("nbr_place") or 0) > 200:
             raise ValidationError(detail='le nombre de place ne doit pas etre supérieur a 200')
-        elif datetime.date.today() >=data["date_inscription"]:
+        if datetime.date.today() >=data["date_inscription"]:
             raise ValidationError(detail="vous ne pouvez pas definir une date d'inscription qui est déja passé")
-        elif data["date_inscription"] >=data["date_debut"]:
+        if data["date_inscription"] >=data["date_debut"]:
             raise ValidationError(detail="vous ne pouvez pas definir une date de début de concours qui est avant la date de début")
 
         return data

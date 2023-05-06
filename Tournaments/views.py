@@ -40,6 +40,7 @@ def tournaments(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED) 
         else:
             return Response(serializer.errors,status=status.HTTP_200_OK)
+    
         
     elif request.method == 'GET':
         tournaments= Tournament.objects.all()
@@ -61,7 +62,7 @@ def tournament(request,id):
         return JsonResponse({}, status=status.HTTP_201_CREATED)
     elif request.method == 'PATCH':
         data= JSONParser().parse(request)
-        serializer = TournamentSerializer(tournament,data=data)
+        serializer = TournamentSerializer(tournament,data=data,partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.validated_data, status=status.HTTP_201_CREATED) 

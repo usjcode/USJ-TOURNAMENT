@@ -57,7 +57,7 @@ def invitations(request):
 
                     
             send_mail("INVITATION POUR L'UTILISATION DU LOGICIEL DE GESTION DE CONCOURS DE USJ",
-                'Veuiller cliquez ici pour active votre compte utilisateur 127.0.0.1:8000/staff/invitation/{}'.format(id),
+                'Veuiller cliquez ici pour active votre compte utilisateur localhost:3000/staff/invitations/{}/validation'.format(id),
                 'TON ADDRESSE MAIL',
                 [mail],
                 fail_silently=False
@@ -77,15 +77,22 @@ def invitations(request):
 
 @api_view(['PATCH','GET','DELETE'])
 def invitation(request,id):
+    invitation=StaffInvitation.objects.get(id=id)
     if request.method  =='PATCH':
-        pass
+        data= JSONParser().parse(request)
+        serializer = StaffInvitationSerializer(invitation,data=data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.validated_data, status=status.HTTP_201_CREATED) 
+        else:
+            return Response(serializer.errors,status=status.HTTP_200_OK)
     if request.method =='DELETE':
         invitation = StaffInvitation.objects.get(id=id)
-        
-        invitations.delete()
-        return JsonResponse({}, status=status.HTTP_200_NO_CONTENT)
+        invitation.delete()
+        return JsonResponse({}, status=status.HTTP_204_NO_CONTENT)
     if request.method == 'GET':
-        invitation=StaffInvitation.objects.get(id=id)
+        
+
         serializer=StaffInvitationSerializer(invitation)
         return JsonResponse(serializer.data,status=status.HTTP_200_OK)
 
@@ -93,16 +100,18 @@ def invitation(request,id):
 def invitationvalidation(request,id):
     invitation=StaffInvitation.objects.get(id=id)
     randompassword=get_random_string(8)
-    username=invitation.email
-    name="utilisateur"+str(invitation.id)    
+    name="utilisateur"+str(invitation.id) 
+    lastuser=StaffUser.objects.last()  
+     
     newuser:StaffUser
     if invitation.active:
-        newuser=StaffUser(username=username,email=invitation.email,role=invitation.role,name=name)
+        newuser=StaffUser(username="user"+str(lastuser.id+1 or 0),email=invitation.email,role=invitation.role,name=name)
         newuser.set_password(randompassword)
         newuser.save()     
         invitation.active=False
+        invitation.validate=True
         invitation.save()
-    return Response({username,randompassword},status=status.HTTP_200_OK)
+    return Response(request.data,status=status.HTTP_200_OK)
 
     
 @api_view(['GET','DELETE','POST'])
