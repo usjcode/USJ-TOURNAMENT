@@ -28,8 +28,8 @@ SECRET_KEY = 'django-insecure-6f&=wb93k3#+i(gn9axrb(-ib0e-pf229^t=4%a6!kj4dzp+ah
 DEBUG = True
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'ngdream1953@gmail.com'
-EMAIL_HOST_PASSWORD = 'amapomtkstmcftlx'
+EMAIL_HOST_USER = 'ismael.tchinwa@institutsaintjean.org'
+EMAIL_HOST_PASSWORD = 'gdydkcdcgbugwdnz'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
