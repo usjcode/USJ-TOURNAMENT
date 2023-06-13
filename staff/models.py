@@ -50,3 +50,4 @@ class StaffInvitation(models.Model):
     
     def __str__(self) -> str:
         return self.email + " " + self.role
+    

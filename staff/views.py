@@ -20,6 +20,12 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
 
 
+#############-- --########
+from django.contrib import messages
+from django.contrib.auth.forms import ReinitialiserMdpForm
+from django.contrib.auth import views as auth_views
+
+
 
 def get_random_string(length):
     letters = string.ascii_lowercase
@@ -137,6 +143,26 @@ def getRoutes(request):
 
     ]
     return Response(routes)
+
+
+
+
+
+#############--def--#############
+
+def reinitialiser_mdp(request):
+    if request.method == 'POST':
+        form = ReinitialiserMdpForm(request.POST)
+        if form.is_valid():
+            form.save(request=request)
+            messages.success(request, 'Un email a été envoyé avec des instructions pour réinitialiser votre mot de passe.')
+            return redirect('reinitialiser_mdp_done')
+        else:
+            form = ReinitialiserMdpForm()
+            return render(request, 'reinitialiser_mdp.html',{'form':form})
+        
+
+
 
 # @api_view(['GET'])
 # def changePassword(request):

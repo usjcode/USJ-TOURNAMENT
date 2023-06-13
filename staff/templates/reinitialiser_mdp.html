@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Réinitialisation du mot de passe</h2>
+    <p>
+        Entrer l'adresse email associée à votre compte, et nous vous enverons un lien pour réinitialiser votre mdp.
+    </p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Envoyer</button>
+    </form>
+{% endblock  %}
